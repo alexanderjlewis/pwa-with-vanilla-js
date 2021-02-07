@@ -1,7 +1,8 @@
-const staticDevRecipes = "dev-recipes-site-v1";
+const staticJOLRecipes = "JOL-recipes-site-v1";
 const assets = [
   "/",
   "/index.html",
+  "/list.html",
   "/bagels.html",
   "/ragu.html",
   "/js/app.js",
@@ -12,7 +13,7 @@ const assets = [
 
 self.addEventListener("install", installEvent => {
   installEvent.waitUntil(
-    caches.open(staticDevRecipes).then(cache => {
+    caches.open(staticJOLRecipes).then(cache => {
       cache.addAll(assets);
     })
   );

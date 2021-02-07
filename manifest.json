@@ -1,11 +1,11 @@
 {
-  "name": "Dev Recipes",
-  "short_name": "DevRecipes",
+  "name": "JOL Recipes",
+  "short_name": "JOL Recipes",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#fdfdfd",
   "theme_color": "#db4938",
-  "orientation": "portrait-primary",
+  "orientation": "landscape-primary",
   "icons": [
     {
       "src": "/images/icons/icon-72x72.png",

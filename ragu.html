@@ -3,7 +3,7 @@
   <head>
     <script src="js/gitgraph.umd.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,8 +21,7 @@
     <link rel="apple-touch-icon" href="images/icons/icon-512x512.png">
     <meta name="apple-mobile-web-app-status-bar" content="#db4938">
     <meta name="theme-color" content="#db4938">
-    <title>A-Team Recipes</title>
-
+    <title>JOL Recipes</title>
 
     <style>
       .svg-content { 
@@ -45,16 +44,20 @@
   </head>
   <body>
   <!-- DOM element in which we'll mount our graph -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-   
-    </div>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="/index.html">A-Team Recipes</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/list.html">List
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
     <div id="graph-container1" class="svg-container"></div>
     <div id="graph-container2" class="svg-container"></div>
@@ -87,10 +90,11 @@
         template: withoutHash,
       });
 
-      var end3 = gitgraph3.branch('Start').commit('').tag('Done!');
+      var end3 = gitgraph3.branch('Start')
+      end3.commit('').tag('Done!');
       end3.commit('Serve');
       end3.commit('15 min - Rest');
-      end3.commit('5 min - Removal foil and return to over');
+      end3.commit('5 min - Removal foil and return to oven');
       end3.commit('40 min - Cover tightly with foil and bake');
       end3.commit('Add ingredient, Stir very well, scraping sides and bottom');
 
@@ -119,10 +123,8 @@
       var gitgraph2 = GitgraphJS.createGitgraph(graphContainer2, {
         template: withoutHash,
       });
-      //var end2 = gitgraph2.branch('').commit('Reduce oven to 180C');
-      //end.commit('Reduce oven to 180C');
-      var end2 = gitgraph2.branch('').commit('40 min - Bake, stirring halfway through');
-      //end2.commit('40 min - Bake, stirring halfway through');
+      var end2 = gitgraph2.branch('')
+      end2.commit('40 min - Bake, stirring halfway through');
       end2.commit('Add ingredients, still very well');
 
       var oil = gitgraph2.branch('Olive Oil')
@@ -139,16 +141,15 @@
       soy_sauce.merge(end2,'90 mL').tag('Soy Sauce')
       cumin_seeds.merge(end2,'2 tsp').tag('Cumin Seeds')
 
-      end2.commit('Put veg in large high-side baking tray');
+      end2.commit('Put veg in large high-sided baking tray');
 
       var graphContainer1 = document.getElementById("graph-container1");
       var gitgraph1 = GitgraphJS.createGitgraph(graphContainer1, {
         template: withoutHash,
       });
-      //var end1 = gitgraph1.branch('').commit('Put veg in large high-side baking tray');
-      //end.commit('Put veg in large high-side baking tray');
-      var end1 = gitgraph1.branch('').commit('Blend until all finely chopped');
-      //end1.commit('Blend until all finely chopped');
+
+      var end1 = gitgraph1.branch('')
+      end1.commit('Blend until all finely chopped');
 
       var carrots = gitgraph1.branch('Carrots')
       var onions = gitgraph1.branch('Onions')
@@ -164,10 +165,11 @@
       garlic.merge(end1,'4 cloves').tag('Garlic')
       plum_tomatos.merge(end1,'3 - 4 (350 g)').tag('Plum Tomatos')
 
+      end1.commit('Start');
+
 
     </script>
-    
-    <script src="js/app.js"></script>
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     
   </body>
