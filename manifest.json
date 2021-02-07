@@ -1,6 +1,6 @@
 {
-  "name": "Dev'Coffee",
-  "short_name": "DevCoffee",
+  "name": "Dev Recipes",
+  "short_name": "DevRecipes",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#fdfdfd",
