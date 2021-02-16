@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
+
+    <title>JOL Recipes</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/index.html">JOL Recipe Book</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/index">Home</a></li>
+        <li class="breadcrumb-item active">List</li>
+      </ol>
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>Recipes</h2>
+        </div>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for recipe in recipes %}
+          <div class="col">
+            <div class="card text-white bg-primary mb-3">
+              <div class="card-body">
+                <h4 class="card-title">{{ recipe['name'] }}</h4>
+                <p>
+                  {% for tag in recipe['tags_info'] %}
+                    <span class="badge badge-pill badge-info">{{ tag }}</span>
+                  {% endfor %}
+                  {% for tag in recipe['tags_green'] %}
+                    <span class="badge badge-pill badge-success">{{ tag }}</span>
+                  {% endfor %}
+                </p>
+                <p class="card-text">{{ recipe['tag_line'] }}</p>
+                <a href="/recipe/{{ recipe['safe_name'] }}" class="btn btn-secondary stretched-link">See Details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,225 @@
+{
+    "recipes": [{
+            "name": "Bagels",
+            "safe_name": "bagels",
+            "tag_line": "12 hrs to Complete, 30min effort",
+            "tags_info": ["Stand Mixer"],
+            "tags_green": ["Vege"],
+            "servings": "8",
+            "servings_unit": "Bagels",
+            "ingredients_pantry": [{
+                "name": "Dry Yeast",
+                "quantity": "1 Tbsp"
+            }, {
+                "name": "Bread Flour",
+                "quantity": "4 Cups"
+            }, {
+                "name": "Salt",
+                "quantity": "2 Tsp"
+            }, {
+                "name": "Brown Sugar",
+                "quantity": "3 Tbsp"
+            }, {
+                "name": "Caster Sugar",
+                "quantity": "1 Tbsp"
+            }],
+            "ingredients_meat_veg": [],
+            "ingredients_herbs_spices": [],
+            "equipment": [
+                "Stand Mixer",
+                "Stove",
+                "Oven"
+            ],
+            "steps": [{
+                    "id": 1,
+                    "before": [],
+                    "after": [2],
+                    "time": "",
+                    "completion": 0,
+                    "ingredients": [],
+                    "instruction": ["Start"]
+                },
+                {
+                    "id": 2,
+                    "before": [],
+                    "after": [2],
+                    "time": "10min",
+                    "completion": 5,
+                    "ingredients": [{
+                            "name": "Dry Yeast",
+                            "quantity": "1",
+                            "unit": "Tablespoon"
+                        },
+                        {
+                            "name": "Warm Water",
+                            "quantity": "1.5",
+                            "unit": "Cups"
+                        },
+                        {
+                            "name": "Bread Flour",
+                            "quantity": "4",
+                            "unit": "Cups"
+                        },
+                        {
+                            "name": "Salt",
+                            "quantity": "2",
+                            "unit": "Teaspoons"
+                        },
+                        {
+                            "name": "Brown Sugar",
+                            "quantity": "1",
+                            "unit": "Tablespoon"
+                        }
+                    ],
+                    "instruction": ["Kneed, Medium-Low Speed in a stand mixer"]
+                },
+                {
+                    "id": 3,
+                    "before": [1],
+                    "after": [3],
+                    "time": "12hrs",
+                    "completion": 60,
+                    "ingredients": [],
+                    "instruction": ["Put Dough in an Oiled Bowl and Cover. Leave ", "in Fridge to Rise"]
+                },
+                {
+                    "id": 3,
+                    "before": [2],
+                    "after": [4],
+                    "time": "",
+                    "completion": 60,
+                    "ingredients": [],
+                    "instruction": ["Transfer onto Floured Board and Divide into 8", "Balls. Kneed and roll balls until smooth", "another longer line of text......."]
+                },
+                {
+                    "id": 4,
+                    "before": [3],
+                    "after": [5],
+                    "time": "30min",
+                    "completion": 70,
+                    "ingredients": [],
+                    "instruction": ["Cover and let rest"]
+                },
+                {
+                    "id": 5,
+                    "before": [4],
+                    "after": [6],
+                    "time": "",
+                    "completion": 70,
+                    "ingredients": [],
+                    "instruction": ["Preheat Oven to 220C"]
+                },
+                {
+                    "id": 6,
+                    "before": [5],
+                    "after": [7],
+                    "time": "",
+                    "completion": 70,
+                    "ingredients": [],
+                    "instruction": ["Bring a large pan of water to boil"]
+                },
+                {
+                    "id": 7,
+                    "before": [6],
+                    "after": [8],
+                    "time": "",
+                    "completion": 75,
+                    "ingredients": [{
+                            "name": "Brown Sugar",
+                            "quantity": "2",
+                            "unit": "Tablespoon"
+                        },
+                        {
+                            "name": "Caster Sugar",
+                            "quantity": "1",
+                            "unit": "Tablespoon"
+                        }
+                    ],
+                    "instruction": ["Dissolve Sugar into Water"]
+                },
+                {
+                    "id": 8,
+                    "before": [7],
+                    "after": [9],
+                    "time": "",
+                    "completion": 80,
+                    "ingredients": [],
+                    "instruction": ["Poke a hole through the centre of each ball ", "to form a ring."]
+                },
+                {
+                    "id": 9,
+                    "before": [8],
+                    "after": [10],
+                    "time": "3min",
+                    "completion": 80,
+                    "ingredients": [],
+                    "instruction": ["Boil bagels in batches, flipping after 2 min"]
+                },
+                {
+                    "id": 10,
+                    "before": [9],
+                    "after": [],
+                    "time": "20-25min",
+                    "completion": 100,
+                    "ingredients": [],
+                    "instruction": ["Bake"]
+                },
+                {
+                    "id": 11,
+                    "before": [],
+                    "after": [2],
+                    "time": "",
+                    "completion": 100,
+                    "ingredients": [],
+                    "instruction": ["End"]
+                }
+            ]
+        },
+        {
+            "name": "Ragu",
+            "safe_name": "ragu",
+            "tag_line": "2hrs, 30min effort",
+            "tags_info": ["Food Processor"],
+            "tags_green": ["Vege"],
+            "servings": "8",
+            "servings_unit": "Bagels",
+            "ingredients": [{
+                "category": "Meat and Vegetable",
+                "name": "",
+                "quantity": ""
+            }, {
+                "category": "Meat and Vegetable",
+                "name": "",
+                "quantity": ""
+            }],
+            "equipment": [
+                "Food Processor (Optional)",
+                "Large Baking Tray"
+            ],
+            "steps": []
+        },
+        {
+            "name": "Pizza Dough",
+            "safe_name": "pizza_dough",
+            "tag_line": "2hrs, 30min effort",
+            "tags_info": ["Stand Mixer"],
+            "tags_green": ["Vege"],
+            "servings": "",
+            "servings_unit": "",
+            "ingredients": [{
+                "category": "Meat and Vegetable",
+                "name": "",
+                "quantity": ""
+            }, {
+                "category": "Meat and Vegetable",
+                "name": "",
+                "quantity": ""
+            }],
+            "equipment": [
+                "Stand Mixer",
+                "Round Baking Tray"
+            ],
+            "steps": []
+        }
+    ]
+}

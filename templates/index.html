@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='manifest.json') }}">
 
     <title>JOL Recipes</title>
   </head>
@@ -19,12 +19,12 @@
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <p class="lead">
-          <a class="btn btn-primary btn-lg" href="/list.html" role="button">See the List...</a>
+          <a class="btn btn-primary btn-lg" href="/list" role="button">See the List...</a>
         </p>
       </div>
     </div>
 
-    <script src="js/app.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
   </body>
 </html>
