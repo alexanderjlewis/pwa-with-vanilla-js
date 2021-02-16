@@ -1,16 +1,10 @@
 const staticJOLRecipes = "JOL-recipes-site-v1";
 const assets = [
     "/",
-    "/index.html",
     "/list.html",
-    "/bagels.html",
-    "/ragu.html",
-    "/js/app.js",
-    "/css/bootstrap.min.css",
-    "/custom.min.css",
-    "/js/bootstrap.min.js",
-    "/js/gitgraph.umd.js",
-    "/js/jquery-3.5.1.slim.min.js"
+    "/recipe/bagels",
+    "/recipe/ragu",
+    "/recipe/pizza_dough",
 ];
 
 self.addEventListener("install", installEvent => {
