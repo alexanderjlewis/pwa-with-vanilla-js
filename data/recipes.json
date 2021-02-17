@@ -25,10 +25,13 @@
             }],
             "ingredients_meat_veg": [],
             "ingredients_herbs_spices": [],
-            "equipment": [
-                "Stand Mixer",
+            "equipment_standard": [
                 "Stove",
-                "Oven"
+                "Oven",
+                "Large Pan"
+            ],
+            "equipment_special": [
+                "Stand Mixer"
             ],
             "steps": [{
                     "id": 1,
@@ -44,31 +47,26 @@
                     "before": [],
                     "after": [2],
                     "time": "10min",
-                    "completion": 5,
+                    "completion": 15,
                     "ingredients": [{
                             "name": "Dry Yeast",
-                            "quantity": "1",
-                            "unit": "Tablespoon"
+                            "quantity": "1 Tbsp"
                         },
                         {
                             "name": "Warm Water",
-                            "quantity": "1.5",
-                            "unit": "Cups"
+                            "quantity": "1.5 Cups"
                         },
                         {
                             "name": "Bread Flour",
-                            "quantity": "4",
-                            "unit": "Cups"
+                            "quantity": "4 Cups"
                         },
                         {
                             "name": "Salt",
-                            "quantity": "2",
-                            "unit": "Teaspoons"
+                            "quantity": "2 Tsp"
                         },
                         {
                             "name": "Brown Sugar",
-                            "quantity": "1",
-                            "unit": "Tablespoon"
+                            "quantity": "1 Tbsp"
                         }
                     ],
                     "instruction": ["Kneed, Medium-Low Speed in a stand mixer"]
@@ -89,7 +87,7 @@
                     "time": "",
                     "completion": 60,
                     "ingredients": [],
-                    "instruction": ["Transfer onto Floured Board and Divide into 8", "Balls. Kneed and roll balls until smooth", "another longer line of text......."]
+                    "instruction": ["Transfer onto Floured Board and Divide into 8", "Balls. Kneed and roll balls until smooth"]
                 },
                 {
                     "id": 4,
@@ -126,13 +124,11 @@
                     "completion": 75,
                     "ingredients": [{
                             "name": "Brown Sugar",
-                            "quantity": "2",
-                            "unit": "Tablespoon"
+                            "quantity": "2 Tbsp"
                         },
                         {
                             "name": "Caster Sugar",
-                            "quantity": "1",
-                            "unit": "Tablespoon"
+                            "quantity": "1 Tbsp"
                         }
                     ],
                     "instruction": ["Dissolve Sugar into Water"]
