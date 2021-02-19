@@ -136,9 +136,9 @@
         </div>
         <div class="tab-pane fade" id="method">
           <div class="col-lg-12">
-            
-            {% block chart_svg %}{% endblock %}
-            
+            <div style="width:100%;max-width:600px;margin-left:auto;margin-right:auto;">
+              {% block chart_svg %}{% endblock %}
+            </div>
           </div>
         </div>
       </div>
@@ -149,6 +149,19 @@
    
     </div>
 
+    <script>
+      function changecolor(elt) {
+        svg_elt = document.getElementById(elt.id);
+
+        if (svg_elt.getAttribute('fill') == '#c5e1a5') {
+          svg_elt.setAttribute('fill','#3D4242');
+        }
+        else {
+          svg_elt.setAttribute('fill','#c5e1a5');
+        }
+      
+      }
+    </script>
     <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
