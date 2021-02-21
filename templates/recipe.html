@@ -1,195 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.min.css') }}">
+{% extends "base.html" %}
+{% block title %}JOL Recipe - {{ recipe['name'] }}{% endblock title %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="manifest" href="manifest.json">
-    <!-- ios support -->
-    <link rel="apple-touch-icon" href="images/icons/icon-512x512.png">
-    <meta name="apple-mobile-web-app-status-bar" content="#db4938">
-    <meta name="theme-color" content="#db4938">
-    <title>JOL Recipes</title>
-
-  </head>
-  <body>
-  <!-- DOM element in which we'll mount our graph -->
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/index.html">JOL Recipe Book</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="/list">List</a></li>
-        <li class="breadcrumb-item active">{{ recipe['name'] }}</li>
-      </ol>
-      <div class="jumbotron py-4">
-        <h2>{{ recipe['name'] }}</h2>
-        <p class="lead">{{ recipe['description'] }}</p>
-        <p class="muted"><em>{{ recipe['serving_tag'] }}</em></p>
-      </div>
-      <ul class="nav nav-tabs">
-        <li class="nav-item mr-1">
-          <a class="nav-link active" data-toggle="tab" href="#ingredients">Ingredients</a>
-        </li>
-        <li class="nav-item mr-1">
-          <a class="nav-link" data-toggle="tab" href="#equipment">Equipment</a>
-        </li>
-        <li class="nav-item mr-1">
-          <a class="nav-link" data-toggle="tab" href="#method">Method</a>
-        </li>
-      </ul>
-      <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade active show" id="ingredients">
-          <div class="row">
-            <div class="col-lg-5 col-md-6 mb-2">
-              <ul class="list-group">
-                <h5 class="mt-2">Meat & Vegetables</h5>
-                {% if recipe['ingredients_meat_veg'] %}
-                  {% for ingredient in recipe['ingredients_meat_veg'] %}  
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
-                      <span class="flex-grow-1">{{ingredient['name']}}</span>
-                      <em text-muted>{{ingredient['quantity']}}</em>
-                    </li>
-                  {% endfor %}
-                {% else %}
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span class="flex-grow-1"><i>None</i></span>
-                  </li>
-                {% endif %}
-              </ul>
-            </div>
-            <div class="col-lg-5 col-md-6 mb-2">
-              <ul class="list-group">
-                <h5 class="mt-2">Herbs and Spices</h5>
-                {% if recipe['ingredients_herbs_spices'] %}
-                  {% for ingredient in recipe['ingredients_herbs_spices'] %}  
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
-                      <span class="flex-grow-1">{{ingredient['name']}}</span>
-                      <em text-muted>{{ingredient['quantity']}}</em>
-                    </li>
-                  {% endfor %}
-                {% else %}
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span class="flex-grow-1"><i>None</i></span>
-                  </li>
-                {% endif %}
-              </ul>
-            </div>
-            <div class="col-lg-5 col-md-6 mb-2">
-              <ul class="list-group">
-                <h5 class="mt-2">Pantry</h5>
-                {% if recipe['ingredients_pantry'] %}
-                  {% for ingredient in recipe['ingredients_pantry'] %}  
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
-                      <span class="flex-grow-1">{{ingredient['name']}}</span>
-                      <em text-muted>{{ingredient['quantity']}}</em>
-                    </li>
-                  {% endfor %}
-                {% else %}
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span class="flex-grow-1"><i>None</i></span>
-                  </li>
-                {% endif %}
-              </ul>
-            </div>
-            <div class="col-lg-5 col-md-6 mb-2">
-              <ul class="list-group">
-                <h5 class="mt-2">Fridge and Freezer</h5>
-                {% if recipe['ingredients_fridge_freezer'] %}
-                  {% for ingredient in recipe['ingredients_fridge_freezer'] %}  
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
-                      <span class="flex-grow-1">{{ingredient['name']}}</span>
-                      <em text-muted>{{ingredient['quantity']}}</em>
-                    </li>
-                  {% endfor %}
-                {% else %}
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span class="flex-grow-1"><i>None</i></span>
-                  </li>
-                {% endif %}
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="equipment">
-          <div class="row">
-            <div class="col-lg-4 col-md-6 mb-2">
-              <h5 class="mt-2">Standard</h5>
-              <ul class="list-group">
-                  {% if recipe['equipment_standard'] %}
-                    {% for item in recipe['equipment_standard'] %}  
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="flex-grow-1">{{item}}</span>
-                      </li>
-                    {% endfor %}
-                  {% else %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <span class="flex-grow-1"><i>None</i></span>
-                    </li>
-                  {% endif %}
-                </ul>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-2">
-              <h5 class="mt-2">More Specialised</h5>
-              <ul class="list-group">
-                  {% if recipe['equipment_special'] %}
-                    {% for item in recipe['equipment_special'] %}  
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="flex-grow-1">{{item}}</span>
-                      </li>
-                    {% endfor %}
-                  {% else %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <span class="flex-grow-1"><i>None</i></span>
-                    </li>
-                  {% endif %}
-                </ul>
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="method">
-          <div class="col-lg-12">
-            <div style="width:100%;max-width:690px;margin-left:auto;margin-right:auto;">
-              {% block chart_svg %}{% endblock %}
-            </div>
-          </div>
-        </div>
-      </div>
-      <p> </p>
-
-
-      
-   
+{% block content %}
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="/index.html">JOL Recipe Book</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/list">List</a></li>
+      <li class="breadcrumb-item active">{{ recipe['name'] }}</li>
+    </ol>
+    <div class="jumbotron py-4">
+      <h2>{{ recipe['name'] }}</h2>
+      <p class="lead">{{ recipe['description'] }}</p>
+      <p class="muted"><em>{{ recipe['serving_tag'] }}</em></p>
     </div>
+    <ul class="nav nav-tabs">
+      <li class="nav-item mr-1">
+        <a class="nav-link active" data-toggle="tab" href="#ingredients">Ingredients</a>
+      </li>
+      <li class="nav-item mr-1">
+        <a class="nav-link" data-toggle="tab" href="#equipment">Equipment</a>
+      </li>
+      <li class="nav-item mr-1">
+        <a class="nav-link" data-toggle="tab" href="#method">Method</a>
+      </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade active show" id="ingredients">
+        <div class="row">
+          <div class="col-lg-5 col-md-6 mb-2">
+            <ul class="list-group">
+              <h5 class="mt-2">Meat & Vegetables</h5>
+              {% if recipe['ingredients_meat_veg'] %}
+                {% for ingredient in recipe['ingredients_meat_veg'] %}  
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
+                    <span class="flex-grow-1">{{ingredient['name']}}</span>
+                    <em text-muted>{{ingredient['quantity']}}</em>
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span class="flex-grow-1"><i>None</i></span>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="col-lg-5 col-md-6 mb-2">
+            <ul class="list-group">
+              <h5 class="mt-2">Herbs and Spices</h5>
+              {% if recipe['ingredients_herbs_spices'] %}
+                {% for ingredient in recipe['ingredients_herbs_spices'] %}  
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
+                    <span class="flex-grow-1">{{ingredient['name']}}</span>
+                    <em text-muted>{{ingredient['quantity']}}</em>
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span class="flex-grow-1"><i>None</i></span>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="col-lg-5 col-md-6 mb-2">
+            <ul class="list-group">
+              <h5 class="mt-2">Pantry</h5>
+              {% if recipe['ingredients_pantry'] %}
+                {% for ingredient in recipe['ingredients_pantry'] %}  
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
+                    <span class="flex-grow-1">{{ingredient['name']}}</span>
+                    <em text-muted>{{ingredient['quantity']}}</em>
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span class="flex-grow-1"><i>None</i></span>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="col-lg-5 col-md-6 mb-2">
+            <ul class="list-group">
+              <h5 class="mt-2">Fridge and Freezer</h5>
+              {% if recipe['ingredients_fridge_freezer'] %}
+                {% for ingredient in recipe['ingredients_fridge_freezer'] %}  
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
+                    <span class="flex-grow-1">{{ingredient['name']}}</span>
+                    <em text-muted>{{ingredient['quantity']}}</em>
+                  </li>
+                {% endfor %}
+              {% else %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span class="flex-grow-1"><i>None</i></span>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="equipment">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 mb-2">
+            <h5 class="mt-2">Standard</h5>
+            <ul class="list-group">
+                {% if recipe['equipment_standard'] %}
+                  {% for item in recipe['equipment_standard'] %}  
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="flex-grow-1">{{item}}</span>
+                    </li>
+                  {% endfor %}
+                {% else %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="flex-grow-1"><i>None</i></span>
+                  </li>
+                {% endif %}
+              </ul>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-2">
+            <h5 class="mt-2">More Specialised</h5>
+            <ul class="list-group">
+                {% if recipe['equipment_special'] %}
+                  {% for item in recipe['equipment_special'] %}  
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="flex-grow-1">{{item}}</span>
+                    </li>
+                  {% endfor %}
+                {% else %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="flex-grow-1"><i>None</i></span>
+                  </li>
+                {% endif %}
+              </ul>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="method">
+        <div class="col-lg-12">
+          <div style="width:100%;max-width:690px;margin-left:auto;margin-right:auto;">
+            {% block chart_svg %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
 
-    <script>
-      function changecolor(elt) {
-        svg_elt = document.getElementById(elt.id);
+{% block scripts %}
+  <script>
+    function changecolor(elt) {
+      svg_elt = document.getElementById(elt.id);
 
-        if (svg_elt.getAttribute('fill') == '#c5e1a5') {
-          svg_elt.setAttribute('fill','#3D4242');
-        }
-        else {
-          svg_elt.setAttribute('fill','#c5e1a5');
-        }
-      
+      if (svg_elt.getAttribute('fill') == '#c5e1a5') {
+        svg_elt.setAttribute('fill','#3D4242');
       }
-    </script>
-    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-
-  </body>
-</html>
-
+      else {
+        svg_elt.setAttribute('fill','#c5e1a5');
+      }
+    
+    }
+  </script>
+{% endblock scripts %}
+   

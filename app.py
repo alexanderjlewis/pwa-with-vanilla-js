@@ -1,7 +1,7 @@
 #app.py
 import json
 from gen import generate
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, send_file
 
 app = Flask(__name__)
 with open('data/recipes.json') as f:
@@ -24,3 +24,10 @@ def hello(name=None):
     chart = generate(render_recipe)
     return render_template('chart.html', recipe=render_recipe, chart=chart)
 
+@app.route('/sw.js')
+def sw():
+    return send_file('static/js/sw.js')
+
+@app.route('/offline')
+def offline():
+    return render_template('offline.html')

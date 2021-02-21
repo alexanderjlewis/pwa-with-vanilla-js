@@ -1,32 +1,15 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='manifest.json') }}">
-
-    <title>JOL Recipes</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="jumbotron">
-        <h1 class="display-3">Hello There!</h1>
-        <p class="lead">Welcome to the JOL Family Recipe Website.</p>
-        <hr class="my-4">
-        <p>This is a collection of tried and tested family favourites.</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="/list" role="button">See the List...</a>
-        </p>
-      </div>
+{% extends "base.html" %}
+{% block title %}JOL Recipes{% endblock title %}
+{% block content %}
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="display-3">Hello There!</h1>
+      <p class="lead">Welcome to the JOL Family Recipe Website.</p>
+      <hr class="my-4">
+      <p>This is a collection of tried and tested family favourites.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/list" role="button">See the List...</a>
+      </p>
     </div>
-
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-  </body>
-</html>
+  </div>
+{% endblock content %}
