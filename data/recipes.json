@@ -2,11 +2,12 @@
     "recipes": [{
             "name": "Bagels",
             "safe_name": "bagels",
+            "description": "Perfect breakfast treat, on their own or with eggs and smoked salmon. Try them topped with poppy seed, sesame seeds or an 'everything' mix of both with onion and garlic granules too.",
             "tag_line": "12 hrs to Complete, 30min effort",
             "tags_info": ["Stand Mixer"],
             "tags_green": ["Vege"],
-            "servings": "8",
-            "servings_unit": "Bagels",
+            "serving_tag": "One recipe makes 8 bagles",
+            "servings_qty": "8",
             "ingredients_pantry": [{
                 "name": "Dry Yeast",
                 "quantity": "1 Tbsp"
@@ -23,8 +24,14 @@
                 "name": "Caster Sugar",
                 "quantity": "1 Tbsp"
             }],
-            "ingredients_meat_veg": [],
-            "ingredients_herbs_spices": [],
+            "ingredients_meat_veg": [{
+                "name": "Eggs",
+                "quantity": "1"
+            }],
+            "ingredients_herbs_spices": [{
+                "name": "Toppings",
+                "quantity": "Various"
+            }],
             "equipment_standard": [
                 "Stove",
                 "Oven",
@@ -41,7 +48,7 @@
                     "long_step": false,
                     "completion": 0,
                     "ingredients": [],
-                    "instruction": ["Start"]
+                    "instruction": "Start"
                 },
                 {
                     "id": 1,
@@ -71,17 +78,17 @@
                             "quantity": "1 Tbsp"
                         }
                     ],
-                    "instruction": ["Kneed, Medium-Low Speed in a stand mixer"]
+                    "instruction": "Kneed, medium-low speed in a stand mixer"
                 },
                 {
                     "id": 2,
                     "before": [1],
                     "after": [3],
                     "time": "12 hrs",
-                    "long_step": 6,
+                    "long_step": 8,
                     "completion": 60,
                     "ingredients": [],
-                    "instruction": ["Put Dough in an Oiled Bowl and Cover. Leave ", "in Fridge to Rise"]
+                    "instruction": "Put dough in an oiled bowl and cover. Leave in fridge to rise"
                 },
                 {
                     "id": 3,
@@ -91,7 +98,7 @@
                     "long_step": false,
                     "completion": 60,
                     "ingredients": [],
-                    "instruction": ["Transfer onto Floured Board and Divide into 8", "Balls. Kneed and roll balls until smooth"]
+                    "instruction": "Transfer onto floured board and divide into 8 even balls. Kneed and roll each ball until smooth"
                 },
                 {
                     "id": 4,
@@ -101,17 +108,17 @@
                     "long_step": 1,
                     "completion": 70,
                     "ingredients": [],
-                    "instruction": ["Cover and let rest"]
+                    "instruction": "Cover and let rest"
                 },
                 {
                     "id": 5,
                     "before": [3],
                     "after": [6],
                     "time": "",
-                    "long_step": 2,
+                    "long_step": false,
                     "completion": 70,
                     "ingredients": [],
-                    "instruction": ["Preheat Oven to 220C"]
+                    "instruction": "Preheat oven to 220C"
                 },
                 {
                     "id": 6,
@@ -121,7 +128,7 @@
                     "long_step": false,
                     "completion": 70,
                     "ingredients": [],
-                    "instruction": ["Bring a large pan of water to boil"]
+                    "instruction": "Bring a large pan of water to boil"
                 },
                 {
                     "id": 7,
@@ -139,7 +146,7 @@
                             "quantity": "1 Tbsp"
                         }
                     ],
-                    "instruction": ["Dissolve Sugar into Water"]
+                    "instruction": "Dissolve sugar into boiling water"
                 },
                 {
                     "id": 8,
@@ -149,7 +156,7 @@
                     "long_step": false,
                     "completion": 80,
                     "ingredients": [],
-                    "instruction": ["Poke a hole through the centre of each ball ", "to form a ring."]
+                    "instruction": "Poke a hole through the centre of each ball to form a ring."
                 },
                 {
                     "id": 9,
@@ -159,38 +166,57 @@
                     "long_step": false,
                     "completion": 80,
                     "ingredients": [],
-                    "instruction": ["Boil bagels in batches, flipping after 2 min"]
+                    "instruction": "Boil bagels in batches, flipping after 2 min"
                 },
                 {
                     "id": 10,
                     "before": [9],
                     "after": [11],
-                    "time": "20-25 min",
-                    "long_step": 1,
-                    "completion": 100,
-                    "ingredients": [],
-                    "instruction": ["Bake"]
+                    "time": "",
+                    "long_step": false,
+                    "completion": 80,
+                    "ingredients": [{
+                            "name": "Egg",
+                            "quantity": "1"
+                        },
+                        {
+                            "name": "Toppings",
+                            "quantity": "Various"
+                        }
+                    ],
+                    "instruction": "Brush on beaten egg then coat with topping of choice."
                 },
                 {
                     "id": 11,
                     "before": [10],
+                    "after": [12],
+                    "time": "20-25 min",
+                    "long_step": 1,
+                    "completion": 100,
+                    "ingredients": [],
+                    "instruction": "Bake"
+                },
+                {
+                    "id": 12,
+                    "before": [11],
                     "after": [],
                     "time": "",
                     "long_step": false,
                     "completion": 100,
                     "ingredients": [],
-                    "instruction": ["End"]
+                    "instruction": "Enjoy!"
                 }
             ]
         },
         {
             "name": "Ragu",
             "safe_name": "ragu",
+            "description": "",
             "tag_line": "2hrs, 30min effort",
             "tags_info": ["Food Processor"],
             "tags_green": ["Vege"],
-            "servings": "8",
-            "servings_unit": "Bagels",
+            "serving_tag": "One recipe makes 4 servings",
+            "servings_qty": "4",
             "ingredients": [{
                 "category": "Meat and Vegetable",
                 "name": "",
@@ -209,11 +235,12 @@
         {
             "name": "Pizza Dough",
             "safe_name": "pizza_dough",
+            "description": "This easy pizza dough recipe is great for beginners and produces a soft homemade pizza crust",
             "tag_line": "2hrs, 30min effort",
             "tags_info": ["Stand Mixer"],
             "tags_green": ["Vege"],
-            "servings": "",
-            "servings_unit": "",
+            "serving_tag": "One recipe makes 2 pizzas.",
+            "servings_qty": "2",
             "ingredients_pantry": [{
                 "name": "Dry Yeast",
                 "quantity": "2 1/4 Tsp"
@@ -230,8 +257,14 @@
                 "name": "Olive Oil",
                 "quantity": "2 Tbsp"
             }],
-            "ingredients_meat_veg": [],
-            "ingredients_herbs_spices": [],
+            "ingredients_meat_veg": [{
+                "name": "Toppings",
+                "quantity": "Various"
+            }],
+            "ingredients_herbs_spices": [{
+                "name": "Toppings",
+                "quantity": "Various"
+            }],
             "equipment_standard": [
                 "Oven",
                 "Pizza Pan (or large tray)"
@@ -247,7 +280,7 @@
                     "long_step": false,
                     "completion": 0,
                     "ingredients": [],
-                    "instruction": ["Start"]
+                    "instruction": "Start"
                 },
                 {
                     "id": 1,
@@ -269,12 +302,12 @@
                             "quantity": "1 Tbsp"
                         }
                     ],
-                    "instruction": ["Whisk together. Cover and rest."]
+                    "instruction": "Whisk together. Cover and rest."
                 },
                 {
                     "id": 2,
                     "before": [1],
-                    "after": [3, 4],
+                    "after": [3, 5],
                     "time": "~5 min",
                     "long_step": false,
                     "completion": 15,
@@ -291,49 +324,288 @@
                             "quantity": "450 g"
                         }
                     ],
-                    "instruction": ["Add ingredients to stand mixer. Knead with a", "dough hook for 5min or until it bounces back ", "slowly from a finger press."]
+                    "instruction": "Add ingredients to stand mixer. Knead with a dough hook for 5min or until it bounces back slowly from a finger press."
                 },
                 {
                     "id": 3,
                     "before": [2],
-                    "after": [5],
+                    "after": [4],
                     "time": "",
                     "long_step": false,
                     "completion": 40,
                     "ingredients": [],
-                    "instruction": ["Preheat oven to 250C"]
+                    "instruction": "Lightly oil a large bowl. Place dough in a bowl and cover"
                 },
                 {
                     "id": 4,
-                    "before": [2],
-                    "after": [5],
+                    "before": [3],
+                    "after": [6],
                     "time": "60 - 90 min",
                     "long_step": 2,
-                    "completion": 40,
+                    "completion": 45,
                     "ingredients": [],
-                    "instruction": ["Lightly oil a large bowl. Place dough in ", "bowl. Cover & allow to rise in a warm place."]
+                    "instruction": "Allow to rise in a warm place."
                 },
                 {
                     "id": 5,
-                    "before": [3, 4],
+                    "before": [2],
                     "after": [6],
-                    "time": "60 - 90 min",
+                    "time": "",
                     "long_step": false,
-                    "completion": 40,
+                    "completion": 45,
                     "ingredients": [],
-                    "instruction": ["ABC"]
+                    "instruction": "Preheat oven to 250C"
                 },
                 {
                     "id": 6,
+                    "before": [4, 5],
+                    "after": [7],
+                    "time": "",
+                    "long_step": false,
+                    "completion": 70,
+                    "ingredients": [],
+                    "instruction": "Turn out dough onto a floured surface. Punch down to release trapped air and divide in half."
+                },
+                {
+                    "id": 7,
                     "before": [6],
+                    "after": [8],
+                    "time": "",
+                    "long_step": false,
+                    "completion": 75,
+                    "ingredients": [],
+                    "instruction": "Roll each half into a 12\" circle"
+                },
+                {
+                    "id": 8,
+                    "before": [7],
+                    "after": [9],
+                    "time": "",
+                    "long_step": false,
+                    "completion": 75,
+                    "ingredients": [{
+                        "name": "Toppings",
+                        "quantity": "Various"
+                    }],
+                    "instruction": "Add toppings of your choice"
+                },
+                {
+                    "id": 9,
+                    "before": [8],
+                    "after": [10],
+                    "time": "8 - 12 min",
+                    "long_step": false,
+                    "completion": 85,
+                    "ingredients": [],
+                    "instruction": "Bake"
+                },
+                {
+                    "id": 10,
+                    "before": [9],
                     "after": [],
                     "time": "",
                     "long_step": false,
                     "completion": 100,
                     "ingredients": [],
-                    "instruction": ["Complete"]
+                    "instruction": "Enjoy!"
                 }
             ]
+        },
+        {
+            "name": "Basil Pesto",
+            "safe_name": "basil_pesto",
+            "description": "Say no more. Watch out for Richard.",
+            "tag_line": "30min effort",
+            "tags_info": [],
+            "tags_green": ["Vege"],
+            "serving_tag": "One recipe makes sauce for 500g of dried pasta.",
+            "servings_qty": "500",
+            "ingredients_pantry": [{
+                "name": "Extra-Virgin Olive Oil",
+                "quantity": "120 mL"
+            }, {
+                "name": "Pine Nuts",
+                "quantity": "2 Tbsp"
+            }, {
+                "name": "Salt",
+                "quantity": "To Taste"
+            }, {
+                "name": "Dried Pasta",
+                "quantity": "500 g"
+            }],
+            "ingredients_meat_veg": [{
+                "name": "Garlic",
+                "quantity": "2 Cloves"
+            }],
+            "ingredients_fridge_freezer": [{
+                "name": "Parmesan",
+                "quantity": "60g"
+            }],
+            "ingredients_herbs_spices": [{
+                "name": "Basil Leaves",
+                "quantity": "60g"
+            }],
+            "equipment_standard": [
+                "Large Pot"
+            ],
+            "equipment_special": [
+                "Blender"
+            ],
+            "steps": [{
+                    "id": 0,
+                    "before": [],
+                    "after": [1],
+                    "time": "",
+                    "long_step": false,
+                    "completion": 0,
+                    "ingredients": [],
+                    "instruction": "Start"
+                },
+                {
+                    "id": 1,
+                    "before": [0],
+                    "after": [2],
+                    "time": "5 min",
+                    "long_step": false,
+                    "completion": 40,
+                    "ingredients": [{
+                            "name": "Basil Leaves",
+                            "quantity": "60 g"
+                        },
+                        {
+                            "name": "Extra-Virgin Olive Oil",
+                            "quantity": "120 mL"
+                        },
+                        {
+                            "name": "Pine Nuts",
+                            "quantity": "2 Tbsp"
+                        },
+                        {
+                            "name": "Garlic",
+                            "quantity": "2 Cloves"
+                        }
+                    ],
+                    "instruction": "Blend until smooth."
+                },
+                {
+                    "id": 2,
+                    "before": [1],
+                    "after": [3],
+                    "time": "",
+                    "long_step": false,
+                    "completion": 60,
+                    "ingredients": [],
+                    "instruction": "Bring a large pot of water to the boil."
+                },
+                {
+                    "id": 3,
+                    "before": [2],
+                    "after": [4],
+                    "time": "~7 min",
+                    "long_step": false,
+                    "completion": 70,
+                    "ingredients": [{
+                        "name": "Dried Pasta",
+                        "quantity": "500 g"
+                    }],
+                    "instruction": "Boil till al dente"
+                },
+                {
+                    "id": 4,
+                    "before": [3],
+                    "after": [5],
+                    "time": "",
+                    "long_step": false,
+                    "completion": 80,
+                    "ingredients": [],
+                    "instruction": "Drain pasta and coat with a small amount of oil."
+                },
+                {
+                    "id": 5,
+                    "before": [4],
+                    "after": [6],
+                    "time": "",
+                    "long_step": false,
+                    "completion": 90,
+                    "ingredients": [{
+                        "name": "Salt",
+                        "quantity": "To Taste"
+                    }],
+                    "instruction": "Add sauce. Season to taste."
+                },
+                {
+                    "id": 6,
+                    "before": [5],
+                    "after": [],
+                    "time": "",
+                    "long_step": false,
+                    "completion": 100,
+                    "ingredients": [],
+                    "instruction": "Enjoy!"
+                }
+            ]
+        },
+        {
+            "name": "Giant Couscous and Pumpkin",
+            "safe_name": "couscous_pumpkin",
+            "description": "Ottolenghi - pg 137",
+            "tag_line": "30min effort",
+            "tags_info": ["Blender"],
+            "tags_green": ["Vege"],
+            "serving_tag": "One recipe serves 4.",
+            "servings_qty": "4",
+            "ingredients_pantry": [{
+                "name": "Olive Oil",
+                "quantity": "105 mL"
+            }, {
+                "name": "Caster Sugar",
+                "quantity": "2 1/2 Tsp"
+            }, {
+                "name": "Giant Couscous",
+                "quantity": "250 g"
+            }],
+            "ingredients_meat_veg": [{
+                "name": "Crown Prince Pumpkin",
+                "quantity": "750 g"
+            }, {
+                "name": "Garlic",
+                "quantity": "8 Cloves"
+            }, {
+                "name": "Onion",
+                "quantity": "2 Large"
+            }, {
+                "name": "Plum Tomatos",
+                "quantity": "750 g"
+            }, {
+                "name": "Onion",
+                "quantity": "2 Large"
+            }, {
+                "name": "Baby Spinach",
+                "quantity": "250 g"
+            }, {
+                "name": "Fresh Coriander",
+                "quantity": "15 g"
+            }],
+            "ingredients_fridge_freezer": [{
+                "name": "Parmesan",
+                "quantity": "60g"
+            }],
+            "ingredients_herbs_spices": [{
+                "name": "Star Anise",
+                "quantity": "4 Whole"
+            }, {
+                "name": "Ground Cinnamon",
+                "quantity": "3 Tsp"
+            }, {
+                "name": "Chilli Flakes",
+                "quantity": "1/3 Tsp"
+            }],
+            "equipment_standard": [
+                "Large Oven Tray",
+                "Saute Pan"
+            ],
+            "equipment_special": [],
+            "steps": []
         }
     ]
 }

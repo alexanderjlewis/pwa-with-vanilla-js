@@ -1,22 +1,26 @@
 import sys
 from xml.etree import ElementTree as ET
+import textwrap
 
 
 def generate(render_recipe):
     
     # static cofig vars
-    main_node_spacing_y = 60
+    main_node_spacing_y = 50
     ingredient_node_spacing_y = 30
 
     main_node_r = 13
     ingredient_square_side = 16
 
     main_path_x = 240
-    ingredient_path_x = 140
+    ingredient_path_x = 150
     secondary_path_x = 300
 
     main_start_y = 40
     text_offset_x = 25
+    secondary_text_offset_x = 86
+
+    text_width = 40
 
     # dynamic vars
     svg = ET.Element('svg', attrib={'width':'100%'})
@@ -32,15 +36,19 @@ def generate(render_recipe):
         svg.append(pattern)
     add_hatch()
 
-    def draw_step(next_node_y,prev_lines,step,secondary):
-            
+    def draw_step(next_node_y,prev_lines,step,secondary,text_secondary):
+        if text_secondary:
+            t_offset = secondary_text_offset_x
+        else:
+            t_offset = text_offset_x
+
         def draw_square():
             square = ET.Element('rect', attrib={'id':'node_' + str(i) + '_square_' + str(j),'onclick':'changecolor(this)', 'x':str(ingredient_path_x - 8),'y':str(next_node_y - 8),'width':str(ingredient_square_side),'height':str(ingredient_square_side),'fill':'#3D4242','stroke':'#3D4242'})
             svg.append(square)
             text = ET.Element('text', attrib={'x': str(ingredient_path_x - 16), 'y':str(next_node_y + 5),'text-anchor':'end','font-size':'smaller'})
             text.text = ingredient['name']
             svg.append(text)
-            text = ET.Element('text', attrib={'x': str(ingredient_path_x + 16), 'y':str(next_node_y + 5),'text-anchor':'start','font-size':'smaller'})
+            text = ET.Element('text', attrib={'x': str(ingredient_path_x + 16), 'y':str(next_node_y + 5),'text-anchor':'start','font-size':'smaller','font-style':'italic'})
             text.text = ingredient['quantity']
             svg.append(text)
 
@@ -67,17 +75,23 @@ def generate(render_recipe):
             circle = ET.Element('circle', attrib={'cx': str(main_path_x),'cy':str(next_node_y),'r': str(main_node_r - 2), 'fill':'url(#grd' + str(add_gradient()) + ')'})
             svg.append(circle)
 
-            text = ET.Element('text', attrib={'x': str(main_path_x + text_offset_x), 'y':str(next_node_y - 19)})
-            for line in step['instruction']:
-                tspan =  ET.Element('tspan', attrib={'x':str(main_path_x + text_offset_x),'dy':'19','alignment-baseline':'middle'})
+            text = ET.Element('text', attrib={'x': str(main_path_x + t_offset), 'y':str(next_node_y - 19)})
+            lines = textwrap.wrap(step['instruction'], text_width, break_long_words=False)
+            for line in lines:
+                tspan =  ET.Element('tspan', attrib={'x':str(main_path_x + t_offset),'dy':'19','alignment-baseline':'middle'})
                 tspan.text = line
                 text.append(tspan)
             svg.append(text)
-            prev_lines = len(step['instruction'])
+            prev_lines = len(lines)
             
             text = ET.Element('text', attrib={'x': str(main_path_x - text_offset_x), 'y':str(next_node_y), 'text-anchor':'end', 'alignment-baseline':'middle'})
             text.text = step['time']
             svg.append(text)
+
+            if text_secondary:
+                path = 'M{0} {1} h{2}'.format(main_path_x,next_node_y,t_offset - 5)
+                path = ET.Element('path', attrib={'d':path,'stroke':'#929292'})
+                svg.insert(0,path)
 
         def draw_oval():
             s_path = 'M{0},{1} v{2} a13,13 1 0 0 13,13 a13,13 1 0 0 13,-13 v-{2} a-13,13 1 0 0 -13,-13 a13,13 1 0 0 -13,13'.format(main_path_x - 13, next_node_y, step['long_step']*20)
@@ -88,17 +102,23 @@ def generate(render_recipe):
             oval = ET.Element('path', attrib={'d':s_path, 'fill':'url(#diagonalHatch)'})
             svg.append(oval)
 
-            centring_text_offset = (len(step['instruction']) * 19 / 2) + 19/2
-            text = ET.Element('text', attrib={'x': str(main_path_x + text_offset_x), 'y':str(next_node_y + (step['long_step']*20)/2 - centring_text_offset)})
-            for line in step['instruction']:
-                tspan =  ET.Element('tspan', attrib={'x':str(main_path_x + text_offset_x),'dy':'19','alignment-baseline':'middle'})
+            lines = textwrap.wrap(step['instruction'], text_width, break_long_words=False)
+            centring_text_offset = (len(lines) * 19 / 2) + 19/2
+            text = ET.Element('text', attrib={'x': str(main_path_x + t_offset), 'y':str(next_node_y + (step['long_step']*20)/2 - centring_text_offset)})            
+            for line in lines:
+                tspan =  ET.Element('tspan', attrib={'x':str(main_path_x + t_offset),'dy':'19','alignment-baseline':'middle'})
                 tspan.text = line
                 text.append(tspan)
             svg.append(text)
                     
             text = ET.Element('text', attrib={'x': str(main_path_x - text_offset_x), 'y':str(next_node_y + (step['long_step']*20)/2), 'text-anchor':'end', 'alignment-baseline':'middle'})
             text.text = step['time']
-            svg.append(text)        
+            svg.append(text)  
+
+            if text_secondary:
+                path = 'M{0} {1} h{2}'.format(main_path_x,next_node_y + (step['long_step']*20)/2,t_offset - 5)
+                path = ET.Element('path', attrib={'d':path,'stroke':'#929292'})
+                svg.insert(0,path)      
         
         def draw_circle_secondary():
             #first cirlce is the outline
@@ -109,36 +129,38 @@ def generate(render_recipe):
             circle = ET.Element('circle', attrib={'cx': str(secondary_path_x),'cy':str(next_node_y),'r': str(main_node_r - 2), 'fill':'url(#grd' + str(add_gradient()) + ')'})
             svg.append(circle)
 
-            text = ET.Element('text', attrib={'x': str(secondary_path_x + text_offset_x), 'y':str(next_node_y - 19)})
-            for line in step['instruction']:
-                tspan =  ET.Element('tspan', attrib={'x':str(secondary_path_x + text_offset_x),'dy':'19','alignment-baseline':'middle'})
+            text = ET.Element('text', attrib={'x': str(secondary_path_x + t_offset), 'y':str(next_node_y - 19)})
+            lines = textwrap.wrap(step['instruction'], text_width, break_long_words=False)
+            for line in lines:
+                tspan =  ET.Element('tspan', attrib={'x':str(secondary_path_x + t_offset),'dy':'19','alignment-baseline':'middle'})
                 tspan.text = line
                 text.append(tspan)
             svg.append(text)
-            prev_lines = len(step['instruction'])
+            prev_lines = len(lines)
             
             text = ET.Element('text', attrib={'x': str(secondary_path_x - text_offset_x), 'y':str(next_node_y), 'text-anchor':'end', 'alignment-baseline':'middle'})
             text.text = step['time']
             svg.append(text)
 
         def draw_oval_secondary():
-            s_path = 'M{0},{1} v{2} a13,13 1 0 0 13,13 a13,13 1 0 0 13,-13 v-{2} a-13,13 1 0 0 -13,-13 a13,13 1 0 0 -13,13'.format(main_path_x - 13, next_node_y, step['long_step']*20)
+            s_path = 'M{0},{1} v{2} a13,13 1 0 0 13,13 a13,13 1 0 0 13,-13 v-{2} a-13,13 1 0 0 -13,-13 a13,13 1 0 0 -13,13'.format(secondary_path_x - 13, next_node_y, step['long_step']*20)
             oval = ET.Element('path', attrib={'d':s_path, 'fill':'white','stroke':'#929292'})
             svg.append(oval)
             
-            s_path = 'M{0},{1} v{2} a11,11 1 0 0 11,11 a11,11 1 0 0 11,-11 v-{2} a-11,11 1 0 0 -11,-11 a11,11 1 0 0 -11,11'.format(main_path_x - 11,next_node_y,step['long_step']*20)
+            s_path = 'M{0},{1} v{2} a11,11 1 0 0 11,11 a11,11 1 0 0 11,-11 v-{2} a-11,11 1 0 0 -11,-11 a11,11 1 0 0 -11,11'.format(secondary_path_x - 11,next_node_y,step['long_step']*20)
             oval = ET.Element('path', attrib={'d':s_path, 'fill':'url(#diagonalHatch)'})
             svg.append(oval)
 
-            centring_text_offset = (len(step['instruction']) * 19 / 2) + 19/2
-            text = ET.Element('text', attrib={'x': str(main_path_x + text_offset_x), 'y':str(next_node_y + (step['long_step']*20)/2 - centring_text_offset)})
-            for line in step['instruction']:
-                tspan =  ET.Element('tspan', attrib={'x':str(main_path_x + text_offset_x),'dy':'19','alignment-baseline':'middle'})
+            lines = textwrap.wrap(step['instruction'], text_width, break_long_words=False)
+            centring_text_offset = (len(lines) * 19 / 2) + 19/2
+            text = ET.Element('text', attrib={'x': str(secondary_path_x + t_offset), 'y':str(next_node_y + (step['long_step']*20)/2 - centring_text_offset)})
+            for line in lines:
+                tspan =  ET.Element('tspan', attrib={'x':str(secondary_path_x + t_offset),'dy':'19','alignment-baseline':'middle'})
                 tspan.text = line
                 text.append(tspan)
             svg.append(text)
                     
-            text = ET.Element('text', attrib={'x': str(main_path_x - text_offset_x), 'y':str(next_node_y + (step['long_step']*20)/2), 'text-anchor':'end', 'alignment-baseline':'middle'})
+            text = ET.Element('text', attrib={'x': str(secondary_path_x - text_offset_x), 'y':str(next_node_y + (step['long_step']*20)/2), 'text-anchor':'end', 'alignment-baseline':'middle', 'fill':'#55595c'})
             text.text = step['time']
             svg.append(text)        
         
@@ -148,6 +170,8 @@ def generate(render_recipe):
 
         # if the node has ingredients, we rended them first
         if step['ingredients']:
+            next_node_y -= 15
+            
             temp_y = next_node_y - 8
 
             #for each ingredient, add a square node with appropriate text
@@ -159,13 +183,14 @@ def generate(render_recipe):
             next_node_y += 30
             if secondary:
                 s_path = 'M{0} {1} v-10 a20,20 1 0 0 -20,-20 H{2} a20,20 0 0 1 -20,-20 V{3}'.format(secondary_path_x,next_node_y,ingredient_path_x + 20,temp_y)
+                s_path = ET.Element('path', attrib={'d':s_path, 'stroke':'#add8e6', 'stroke-width':'6', 'fill':'none'})
             else:
                 s_path = 'M{0} {1} v-10 a20,20 1 0 0 -20,-20 H{2} a20,20 0 0 1 -20,-20 V{3}'.format(main_path_x,next_node_y,ingredient_path_x + 20,temp_y)
-            s_path = ET.Element('path', attrib={'d':s_path, 'stroke':'#D7DADA', 'stroke-width':'6', 'fill':'none'})
+                s_path = ET.Element('path', attrib={'d':s_path, 'stroke':'#D7DADA', 'stroke-width':'6', 'fill':'none'})
             svg.insert(0,s_path) #need to insert this at the start so that it is behind the nodes
 
         # determine if node will be a long step (oval) or standard (circle) and render
-        prev_lines = len(step['instruction'])
+        prev_lines = len(textwrap.wrap(step['instruction'], text_width, break_long_words=False))
         if step['long_step']:
             if secondary:
                 draw_oval_secondary()
@@ -188,7 +213,7 @@ def generate(render_recipe):
         
         #draw the first node
         step  = render_recipe['steps'][i]
-        next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,False)
+        next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,False,False)
         
         while True:
             
@@ -198,20 +223,24 @@ def generate(render_recipe):
                 
                 #draw the node
                 step  = render_recipe['steps'][i]
-                next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,False)
+                if len(step['after']) == 2:
+                    next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,False,True)
+                else:
+                    next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,False,False)
            
             elif len(step['after']) == 2: #this means a branch has happened
+                
                 a,b = step['after']
 
                 temp_y = next_node_y
-                next_node_y += 10
+                #next_node_y += 10
 
                 i = a
                 while True: #draw the main leg
+
                     #draw the node
                     step = render_recipe['steps'][i]
-                    next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,False)
-                    
+                    next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,False,True)
                     i = step['after'][0]
                     step  = render_recipe['steps'][i]
 
@@ -222,27 +251,29 @@ def generate(render_recipe):
                 while True: #draw the second leg
                     #draw the node
                     step  = render_recipe['steps'][i]
-                    next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,True)
+                    next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,True,False)
                     
                     i = step['after'][0]
                     step  = render_recipe['steps'][i]
 
                     if len(step['before']) == 2:
                         break
-
+                
                 #draw the top 's' to join the secondary branch
                 s_path = 'M{0} {1} v10 a20,20 1 0 0 20,20 H{2} a20,20 0 0 1 20,20 V{3} a20,20 0 0 1 -20,20 H{4} a20,20 1 0 0 -20,20 v10'.format(main_path_x,temp_y,secondary_path_x-20,next_node_y+10,main_path_x+20)
                 s_path = ET.Element('path', attrib={'d':s_path, 'stroke':'#add8e6', 'stroke-width':'6', 'fill':'none'})
                 svg.insert(0,s_path) #need to insert this at the start so that it is behind the nodes
 
-                next_node_y += 20
+                next_node_y += 10
 
+                next_node_y,prev_lines = draw_step(next_node_y,prev_lines,step,False,False)
+                
             else:
                 break
 
         line_end = ' '.join(['M', str(main_path_x), str(main_start_y), 'L', str(main_path_x), str(next_node_y)])
         line = ET.Element('path', attrib={'d':line_end, 'stroke':'#D7DADA', 'stroke-width':'6'})
         svg.insert(1,line)
-        svg.attrib['height'] = '1500'
-        #svg.attrib['viewBox'] = '0 0 660 ' + str(next_node_y + 60)
+        #svg.attrib['height'] = '1500'
+        svg.attrib['viewBox'] = '0 0 690 ' + str(next_node_y + 60)
     return ET.tostring(svg, encoding='unicode', method='html')

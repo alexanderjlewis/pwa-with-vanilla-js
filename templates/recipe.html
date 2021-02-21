@@ -30,21 +30,26 @@
         <li class="breadcrumb-item"><a href="/list">List</a></li>
         <li class="breadcrumb-item active">{{ recipe['name'] }}</li>
       </ol>
+      <div class="jumbotron py-4">
+        <h2>{{ recipe['name'] }}</h2>
+        <p class="lead">{{ recipe['description'] }}</p>
+        <p class="muted"><em>{{ recipe['serving_tag'] }}</em></p>
+      </div>
       <ul class="nav nav-tabs">
         <li class="nav-item mr-1">
-          <a class="nav-link" data-toggle="tab" href="#ingredients">Ingredients</a>
+          <a class="nav-link active" data-toggle="tab" href="#ingredients">Ingredients</a>
         </li>
         <li class="nav-item mr-1">
           <a class="nav-link" data-toggle="tab" href="#equipment">Equipment</a>
         </li>
         <li class="nav-item mr-1">
-          <a class="nav-link active" data-toggle="tab" href="#method">Method</a>
+          <a class="nav-link" data-toggle="tab" href="#method">Method</a>
         </li>
       </ul>
       <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade" id="ingredients">
+        <div class="tab-pane fade active show" id="ingredients">
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-5 col-md-6 mb-2">
               <ul class="list-group">
                 <h5 class="mt-2">Meat & Vegetables</h5>
                 {% if recipe['ingredients_meat_veg'] %}
@@ -62,7 +67,7 @@
                 {% endif %}
               </ul>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5 col-md-6 mb-2">
               <ul class="list-group">
                 <h5 class="mt-2">Herbs and Spices</h5>
                 {% if recipe['ingredients_herbs_spices'] %}
@@ -80,7 +85,7 @@
                 {% endif %}
               </ul>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5 col-md-6 mb-2">
               <ul class="list-group">
                 <h5 class="mt-2">Pantry</h5>
                 {% if recipe['ingredients_pantry'] %}
@@ -98,16 +103,15 @@
                 {% endif %}
               </ul>
             </div>
-          </div>
-        </div>
-        <div class="tab-pane fade " id="equipment">
-          <div class="col-lg-4">
-            <h5 class="mt-2">Standard</h5>
-            <ul class="list-group">
-                {% if recipe['equipment_standard'] %}
-                  {% for item in recipe['equipment_standard'] %}  
+            <div class="col-lg-5 col-md-6 mb-2">
+              <ul class="list-group">
+                <h5 class="mt-2">Fridge and Freezer</h5>
+                {% if recipe['ingredients_fridge_freezer'] %}
+                  {% for ingredient in recipe['ingredients_fridge_freezer'] %}  
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <span class="flex-grow-1">{{item}}</span>
+                      <input type="checkbox" aria-label="Checkbox for following text input">&emsp;
+                      <span class="flex-grow-1">{{ingredient['name']}}</span>
+                      <em text-muted>{{ingredient['quantity']}}</em>
                     </li>
                   {% endfor %}
                 {% else %}
@@ -116,27 +120,48 @@
                   </li>
                 {% endif %}
               </ul>
-          </div>
-          <div class="col-lg-4">
-            <h5 class="mt-2">More Specialised</h5>
-            <ul class="list-group">
-                {% if recipe['equipment_special'] %}
-                  {% for item in recipe['equipment_special'] %}  
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <span class="flex-grow-1">{{item}}</span>
-                    </li>
-                  {% endfor %}
-                {% else %}
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span class="flex-grow-1"><i>None</i></span>
-                  </li>
-                {% endif %}
-              </ul>
+            </div>
           </div>
         </div>
-        <div class="tab-pane fade active show" id="method">
+        <div class="tab-pane fade" id="equipment">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-2">
+              <h5 class="mt-2">Standard</h5>
+              <ul class="list-group">
+                  {% if recipe['equipment_standard'] %}
+                    {% for item in recipe['equipment_standard'] %}  
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="flex-grow-1">{{item}}</span>
+                      </li>
+                    {% endfor %}
+                  {% else %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="flex-grow-1"><i>None</i></span>
+                    </li>
+                  {% endif %}
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-2">
+              <h5 class="mt-2">More Specialised</h5>
+              <ul class="list-group">
+                  {% if recipe['equipment_special'] %}
+                    {% for item in recipe['equipment_special'] %}  
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="flex-grow-1">{{item}}</span>
+                      </li>
+                    {% endfor %}
+                  {% else %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="flex-grow-1"><i>None</i></span>
+                    </li>
+                  {% endif %}
+                </ul>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="method">
           <div class="col-lg-12">
-            <div style="width:100%;max-width:600px;margin-left:auto;margin-right:auto;">
+            <div style="width:100%;max-width:690px;margin-left:auto;margin-right:auto;">
               {% block chart_svg %}{% endblock %}
             </div>
           </div>
