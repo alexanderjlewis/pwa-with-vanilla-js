@@ -1,1 +1,1 @@
-web: gunicorn jol_recipes/app:app
+web: gunicorn app:app
