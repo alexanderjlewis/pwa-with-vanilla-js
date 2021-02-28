@@ -1,8 +1,9 @@
-var cacheVersion = new Date().getTime();
-var staticCacheName = "JOL-recipe-" + cacheVersion
+var staticCacheName = "JOL-recipe-v1"
 
 var filesToCache = [
     '/',
+    '/list',
+    '/recipe/bagels',
     '/offline',
     '/static/images/favicon.ico',
     '/static/images/icons/72.png',
@@ -12,7 +13,11 @@ var filesToCache = [
     '/static/images/icons/152.png',
     '/static/images/icons/196.png',
     '/static/images/icons/256.png',
-    '/static/images/icons/512.png'
+    '/static/images/icons/512.png',
+    '/static/js/bootstrap.min.js',
+    '/static/js/jquery-3.5.1.slim.min.js',
+    '/static/css/bootstrap.min.css',
+    '/static/css/custom.min.css'
 ];
 
 // Cache on install
@@ -27,21 +32,20 @@ self.addEventListener("install", event => {
 });
 
 // Clear cache on activate
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames
-                .filter(cacheName => (cacheName.startsWith("JOL-recipe-")))
-                .filter(cacheName => (cacheName !== staticCacheName))
-                .map(cacheName => caches.delete(cacheName))
-            );
+self.addEventListener('activate', (e) => {
+    e.waitUntil(
+        caches.keys().then((keyList) => {
+            return Promise.all(keyList.map((key) => {
+                if (key !== staticCacheName) {
+                    return caches.delete(key);
+                }
+            }));
         })
     );
 });
 
 // Serve from cache, and return offline page if client is offline 
-this.addEventListener('fetch', event => {
+/* this.addEventListener('fetch', event => {
     if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
         event.respondWith(
             fetch(event.request.url).catch(error => {
@@ -55,4 +59,18 @@ this.addEventListener('fetch', event => {
             })
         );
     }
+}); */
+self.addEventListener('fetch', (e) => {
+    e.respondWith(
+        caches.match(e.request).then((r) => {
+            console.log('[Service Worker] Fetching resource: ' + e.request.url);
+            return r || fetch(e.request).then((response) => {
+                return caches.open(staticCacheName).then((cache) => {
+                    console.log('[Service Worker] Caching new resource: ' + e.request.url);
+                    cache.put(e.request, response.clone());
+                    return response;
+                });
+            });
+        })
+    );
 });

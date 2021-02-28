@@ -6,31 +6,39 @@
             "tag_line": "12 hrs to Complete, 30min effort",
             "tags_info": ["Stand Mixer"],
             "tags_green": ["Vege"],
-            "serving_tag": "One recipe makes 8 bagles",
-            "servings_qty": "8",
+            "serving_tag": "makes",
+            "serving_qty": "8",
+            "serving_unit": "bagles",
             "ingredients_pantry": [{
                 "name": "Dry Yeast",
-                "quantity": "1 Tbsp"
+                "quantity": 1,
+                "unit": " Tbsp"
             }, {
                 "name": "Bread Flour",
-                "quantity": "4 Cups"
+                "quantity": 4,
+                "unit": " Cups"
             }, {
                 "name": "Salt",
-                "quantity": "2 Tsp"
+                "quantity": 2,
+                "unit": " Tsp"
             }, {
                 "name": "Brown Sugar",
-                "quantity": "3 Tbsp"
+                "quantity": 3,
+                "unit": " Tbsp"
             }, {
                 "name": "Caster Sugar",
-                "quantity": "1 Tbsp"
+                "quantity": 1,
+                "unit": " Tbsp"
             }],
             "ingredients_meat_veg": [{
                 "name": "Eggs",
-                "quantity": "1"
+                "quantity": 1,
+                "unit": ""
             }],
             "ingredients_herbs_spices": [{
                 "name": "Toppings",
-                "quantity": "Various"
+                "quantity": "",
+                "unit": "Various"
             }],
             "equipment_standard": [
                 "Stove",
@@ -59,23 +67,28 @@
                     "completion": 15,
                     "ingredients": [{
                             "name": "Dry Yeast",
-                            "quantity": "1 Tbsp"
+                            "quantity": 1,
+                            "unit": " Tbsp"
                         },
                         {
                             "name": "Warm Water",
-                            "quantity": "1.5 Cups"
+                            "quantity": 1.5,
+                            "unit": " Cups"
                         },
                         {
                             "name": "Bread Flour",
-                            "quantity": "4 Cups"
+                            "quantity": 4,
+                            "unit": " Cups"
                         },
                         {
                             "name": "Salt",
-                            "quantity": "2 Tsp"
+                            "quantity": 2,
+                            "unit": " Tsp"
                         },
                         {
                             "name": "Brown Sugar",
-                            "quantity": "1 Tbsp"
+                            "quantity": 1,
+                            "unit": " Tbsp"
                         }
                     ],
                     "instruction": "Kneed, medium-low speed in a stand mixer"
@@ -139,11 +152,13 @@
                     "completion": 75,
                     "ingredients": [{
                             "name": "Brown Sugar",
-                            "quantity": "2 Tbsp"
+                            "quantity": 2,
+                            "unit": " Tbsp"
                         },
                         {
                             "name": "Caster Sugar",
-                            "quantity": "1 Tbsp"
+                            "quantity": 1,
+                            "unit": " Tbsp"
                         }
                     ],
                     "instruction": "Dissolve sugar into boiling water"
@@ -177,11 +192,13 @@
                     "completion": 80,
                     "ingredients": [{
                             "name": "Egg",
-                            "quantity": "1"
+                            "quantity": 1,
+                            "unit": ""
                         },
                         {
                             "name": "Toppings",
-                            "quantity": "Various"
+                            "quantity": "",
+                            "unit": "Various"
                         }
                     ],
                     "instruction": "Brush on beaten egg then coat with topping of choice."
@@ -215,8 +232,9 @@
             "tag_line": "2hrs, 30min effort",
             "tags_info": ["Food Processor"],
             "tags_green": ["Vege"],
-            "serving_tag": "One recipe makes 4 servings",
-            "servings_qty": "4",
+            "serving_tag": "serves",
+            "serving_qty": "4",
+            "serving_unit": "adults",
             "ingredients": [{
                 "category": "Meat and Vegetable",
                 "name": "",
@@ -239,31 +257,39 @@
             "tag_line": "2hrs, 30min effort",
             "tags_info": ["Stand Mixer"],
             "tags_green": ["Vege"],
-            "serving_tag": "One recipe makes 2 pizzas.",
-            "servings_qty": "2",
+            "serving_tag": "makes dough for",
+            "serving_qty": "2",
+            "serving_unit": "pizzas",
             "ingredients_pantry": [{
                 "name": "Dry Yeast",
-                "quantity": "2 1/4 Tsp"
+                "quantity": 2.25,
+                "unit": " Tsp"
             }, {
                 "name": "Bread Flour",
-                "quantity": "450 g"
+                "quantity": 450,
+                "unit": " g"
             }, {
                 "name": "Salt",
-                "quantity": "3/4 Tsp"
+                "quantity": 0.75,
+                "unit": " Tsp"
             }, {
                 "name": "Caster Sugar",
-                "quantity": "1 Tbsp"
+                "quantity": 1,
+                "unit": " Tbsp"
             }, {
                 "name": "Olive Oil",
-                "quantity": "2 Tbsp"
+                "quantity": 2,
+                "unit": " Tbsp"
             }],
             "ingredients_meat_veg": [{
                 "name": "Toppings",
-                "quantity": "Various"
+                "quantity": "",
+                "unit": "Various"
             }],
             "ingredients_herbs_spices": [{
                 "name": "Toppings",
-                "quantity": "Various"
+                "quantity": "",
+                "unit": "Various"
             }],
             "equipment_standard": [
                 "Oven",
@@ -291,15 +317,18 @@
                     "completion": 5,
                     "ingredients": [{
                             "name": "Dry Yeast",
-                            "quantity": "2 1/4 Tsp"
+                            "quantity": 2.25,
+                            "unit": " Tsp"
                         },
                         {
                             "name": "Warm Water (~40C)",
-                            "quantity": "320 mL"
+                            "quantity": 320,
+                            "unit": " mL"
                         },
                         {
                             "name": "Caster Sugar",
-                            "quantity": "1 Tbsp"
+                            "quantity": 1,
+                            "unit": " Tbsp"
                         }
                     ],
                     "instruction": "Whisk together. Cover and rest."
@@ -313,15 +342,18 @@
                     "completion": 15,
                     "ingredients": [{
                             "name": "Olive Oil",
-                            "quantity": "2 Tbsp"
+                            "quantity": 2,
+                            "unit": " Tbsp"
                         },
                         {
                             "name": "Salt",
-                            "quantity": "3/4 Tbsp"
+                            "quantity": 0.75,
+                            "unit": " Tbsp"
                         },
                         {
                             "name": "Bread Flour",
-                            "quantity": "450 g"
+                            "quantity": 450,
+                            "unit": " g"
                         }
                     ],
                     "instruction": "Add ingredients to stand mixer. Knead with a dough hook for 5min or until it bounces back slowly from a finger press."
@@ -385,7 +417,8 @@
                     "completion": 75,
                     "ingredients": [{
                         "name": "Toppings",
-                        "quantity": "Various"
+                        "quantity": "",
+                        "unit": "Various"
                     }],
                     "instruction": "Add toppings of your choice"
                 },
@@ -418,32 +451,40 @@
             "tag_line": "30min effort",
             "tags_info": [],
             "tags_green": ["Vege"],
-            "serving_tag": "One recipe makes sauce for 500g of dried pasta.",
-            "servings_qty": "500",
+            "serving_tag": "makes sauce for",
+            "serving_qty": "500",
+            "serving_unit": "g of Dry Pasta",
             "ingredients_pantry": [{
                 "name": "Extra-Virgin Olive Oil",
-                "quantity": "120 mL"
+                "quantity": 120,
+                "unit": " mL"
             }, {
                 "name": "Pine Nuts",
-                "quantity": "2 Tbsp"
+                "quantity": 2,
+                "unit": " Tbsp"
             }, {
                 "name": "Salt",
-                "quantity": "To Taste"
+                "quantity": "",
+                "unit": "To Taste"
             }, {
                 "name": "Dried Pasta",
-                "quantity": "500 g"
+                "quantity": 500,
+                "unit": " g"
             }],
             "ingredients_meat_veg": [{
                 "name": "Garlic",
-                "quantity": "2 Cloves"
+                "quantity": 2,
+                "unit": " Cloves"
             }],
             "ingredients_fridge_freezer": [{
                 "name": "Parmesan",
-                "quantity": "60g"
+                "quantity": 60,
+                "unit": " g"
             }],
             "ingredients_herbs_spices": [{
                 "name": "Basil Leaves",
-                "quantity": "60g"
+                "quantity": 60,
+                "unit": " g"
             }],
             "equipment_standard": [
                 "Large Pot"
@@ -470,19 +511,23 @@
                     "completion": 40,
                     "ingredients": [{
                             "name": "Basil Leaves",
-                            "quantity": "60 g"
+                            "quantity": 60,
+                            "unit": " g"
                         },
                         {
                             "name": "Extra-Virgin Olive Oil",
-                            "quantity": "120 mL"
+                            "quantity": 120,
+                            "unit": " mL"
                         },
                         {
                             "name": "Pine Nuts",
-                            "quantity": "2 Tbsp"
+                            "quantity": 2,
+                            "unit": " Tbsp"
                         },
                         {
                             "name": "Garlic",
-                            "quantity": "2 Cloves"
+                            "quantity": 2,
+                            "unit": " Cloves"
                         }
                     ],
                     "instruction": "Blend until smooth."
@@ -506,7 +551,8 @@
                     "completion": 70,
                     "ingredients": [{
                         "name": "Dried Pasta",
-                        "quantity": "500 g"
+                        "quantity": 500,
+                        "unit": " g"
                     }],
                     "instruction": "Boil till al dente"
                 },
@@ -529,7 +575,8 @@
                     "completion": 90,
                     "ingredients": [{
                         "name": "Salt",
-                        "quantity": "To Taste"
+                        "quantity": "",
+                        "unit": "To Taste"
                     }],
                     "instruction": "Add sauce. Season to taste."
                 },
@@ -548,57 +595,177 @@
         {
             "name": "Giant Couscous and Pumpkin",
             "safe_name": "couscous_pumpkin",
-            "description": "Ottolenghi - pg 137",
+            "description": "Ottolenghi Flavour - pg 137",
             "tag_line": "30min effort",
             "tags_info": ["Blender"],
             "tags_green": ["Vege"],
-            "serving_tag": "One recipe serves 4.",
-            "servings_qty": "4",
+            "serving_tag": "serves",
+            "serving_qty": "4",
+            "serving_unit": "adults",
             "ingredients_pantry": [{
                 "name": "Olive Oil",
-                "quantity": "105 mL"
+                "quantity": 105,
+                "unit": " mL"
             }, {
                 "name": "Caster Sugar",
-                "quantity": "2 1/2 Tsp"
+                "quantity": 2.5,
+                "unit": " Tsp"
             }, {
                 "name": "Giant Couscous",
-                "quantity": "250 g"
+                "quantity": 250,
+                "unit": " g"
             }],
             "ingredients_meat_veg": [{
                 "name": "Crown Prince Pumpkin",
-                "quantity": "750 g"
+                "quantity": 750,
+                "unit": " g"
             }, {
                 "name": "Garlic",
-                "quantity": "8 Cloves"
+                "quantity": 8,
+                "unit": " Cloves"
             }, {
                 "name": "Onion",
-                "quantity": "2 Large"
+                "quantity": 2,
+                "unit": " Large"
             }, {
                 "name": "Plum Tomatos",
-                "quantity": "750 g"
+                "quantity": 750,
+                "unit": " g"
             }, {
                 "name": "Onion",
-                "quantity": "2 Large"
+                "quantity": 2,
+                "unit": " Large"
             }, {
                 "name": "Baby Spinach",
-                "quantity": "250 g"
+                "quantity": 250,
+                "unit": " g"
             }, {
                 "name": "Fresh Coriander",
-                "quantity": "15 g"
+                "quantity": 15,
+                "unit": " g"
             }],
             "ingredients_fridge_freezer": [{
                 "name": "Parmesan",
-                "quantity": "60g"
+                "quantity": 60,
+                "unit": " g"
             }],
             "ingredients_herbs_spices": [{
                 "name": "Star Anise",
-                "quantity": "4 Whole"
+                "quantity": 4,
+                "unit": " Whole"
             }, {
                 "name": "Ground Cinnamon",
-                "quantity": "3 Tsp"
+                "quantity": 3,
+                "unit": " Tsp"
             }, {
                 "name": "Chilli Flakes",
-                "quantity": "1/3 Tsp"
+                "quantity": 0.3,
+                "unit": " Tsp"
+            }],
+            "equipment_standard": [
+                "Large Oven Tray",
+                "Saute Pan"
+            ],
+            "equipment_special": [],
+            "steps": []
+        },
+        {
+            "name": "Orange Chicken",
+            "safe_name": "orange_chicken",
+            "description": "Binging with Babish - Rick and Morty Inspired",
+            "tag_line": "Prep one day in advance, 1 hr effort",
+            "tags_info": [""],
+            "tags_green": [""],
+            "serving_tag": "serves",
+            "serving_qty": "4",
+            "serving_unit": "adults",
+            "ingredients_pantry": [{
+                "name": "Brown Sugar",
+                "quantity": 2,
+                "unit": " Tbsp"
+            }, {
+                "name": "Caster Sugar",
+                "quantity": 1,
+                "unit": " Cup"
+            }, {
+                "name": "MSG",
+                "quantity": 0.75,
+                "unit": " Tsp"
+            }, {
+                "name": "Rice Wine Vinegar",
+                "quantity": 5,
+                "unit": " Tbsp"
+            }, {
+                "name": "Soy Sauce",
+                "quantity": 0.25,
+                "unit": " Cup"
+            }, {
+                "name": "Shaoxing Wine",
+                "quantity": 4,
+                "unit": " Tbsp"
+            }, {
+                "name": "Peanut Oil",
+                "quantity": 2,
+                "unit": " L"
+            }, {
+                "name": "Rice Flour",
+                "quantity": 1,
+                "unit": " Cup"
+            }, {
+                "name": "Salt",
+                "quantity": 2,
+                "unit": " Tsp"
+            }, {
+                "name": "Baking Powder",
+                "quantity": 0.5,
+                "unit": " Tsp"
+            }, {
+                "name": "Pepper",
+                "quantity": 0.5,
+                "unit": " Tsp"
+            }, {
+                "name": "Corn Starch",
+                "quantity": 2,
+                "unit": " Tbsp"
+            }, {
+                "name": "Sesame Oil",
+                "quantity": 1,
+                "unit": " Tsp"
+            }],
+            "ingredients_meat_veg": [{
+                "name": "Oranges",
+                "quantity": 6,
+                "unit": ""
+            }, {
+                "name": "Chicken",
+                "quantity": 700,
+                "unit": " g"
+            }, {
+                "name": "Eggs",
+                "quantity": 2,
+                "unit": ""
+            }, {
+                "name": "Spring Onion",
+                "quantity": 1,
+                "unit": " Stalk"
+            }, {
+                "name": "White Rice",
+                "quantity": 2,
+                "unit": " Cups"
+            }],
+            "ingredients_fridge_freezer": [],
+            "ingredients_herbs_spices": [{
+                "name": "Ginger",
+                "quantity": 1,
+                "unit": " Tsp"
+            }, {
+                "name": "Garlic",
+                "quantity": 2,
+                "unit": " Cloves"
+            }, {
+                "name": "Birds Eye Chilli",
+                "quantity": 1,
+                "unit": " Small"
             }],
             "equipment_standard": [
                 "Large Oven Tray",
