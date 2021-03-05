@@ -15,14 +15,20 @@ def index_page():
 def list_page():
     return render_template('list.html', recipes=data['recipes'])
 
+
+@app.route('/api/getList')
+def getList():
+    return "<p>Got it!</p>"
+
 @app.route('/recipe/<name>')
-def hello(name=None):
+def render_recipe_page(name=None):
     render_recipe = None
     for recipe in data['recipes']:
         if recipe['safe_name'] == name:
-            render_recipe = recipe
-    chart = generate(render_recipe)
-    return render_template('chart.html', recipe=render_recipe, chart=chart)
+            with open('data/' + name + '.json') as f1:
+                data1 = json.load(f1)
+    chart = generate(data1)
+    return render_template('chart.html', recipe=data1, chart=chart)
 
 @app.route('/sw.js')
 def sw():
