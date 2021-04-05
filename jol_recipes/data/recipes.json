@@ -47,6 +47,13 @@
             "tag_line": "Prep a day in advance, ~1 hr effort",
             "tags_info": ["Stand Mixer"],
             "tags_green": ["Vege"]
+        },
+        {
+            "name": "Dan Dan Noodles",
+            "safe_name": "dan_dan_noodles",
+            "tag_line": "~1 hr effort",
+            "tags_info": ["Food Processor"],
+            "tags_green": ["Vege"]
         }
     ]
 }
