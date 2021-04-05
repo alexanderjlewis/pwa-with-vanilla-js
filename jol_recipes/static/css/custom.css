@@ -4,3 +4,12 @@ tspan a {
     text-decoration: underline;
     font-style: italic;
 }
+
+textarea {
+    border: none;
+    overflow: hidden;
+    width: auto;
+    resize: none; /*remove the resize handle on the bottom right*/
+    background-color: transparent;
+    line-height: 19px
+}

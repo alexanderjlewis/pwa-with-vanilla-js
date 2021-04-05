@@ -27,7 +27,6 @@ class graph_renderer():
 
             elif step_id == 'SE': #means split end
                 element = element_renderer(id = step_id, is_node = False)       
-                element.end_split = True
                 in_split = False
                 element.process_data()
 
@@ -120,7 +119,6 @@ class element_renderer():
         self.id = id
         self.is_node = is_node
         self.start_split = False
-        self.end_split = False
         self.in_split = False
         self.main_path = True
         self.ingredients = 0
@@ -154,37 +152,13 @@ class element_renderer():
             if self.data['long_step']:
                 self.long_node = True
 
+            '''
             #calculate node height
             temp_text_height = 0
             temp_node_height = 0
 
-            # work out how tall the node will be
-            if self.long_node: #if it's a long step we have to add a rectangular area in the middle of the top/bottom semi circles. If this is 'short' step this is zero hight so the two semi circles form a circle node.
-                temp_node_height += self.data['long_step'] * self.long_step_inc
-            temp_node_height += self.main_node_radius * 2 #add the top/bottom semi circles
-
             # work out how tall the text will be
-            if self.lines_text > 0:
-                temp_text_height += self.lines_text * self.node_text_line_spacing_y
-                # need to include an additional offset to account for the first line of text being centre aligned with the centre of a round node (of the radius on top of a long node)
-                temp_text_height += self.main_node_radius - (self.node_text_line_spacing_y / 2)
-            
-            if self.extra_info == True:
-                temp_text_height += self.node_extra_info_text_line_spacing_y
-
-            # now compare the text/node height to see which prevails
-            self.height += max(temp_node_height, temp_text_height)
-
-            if self.ingredients > 0:
-                self.height += ((self.ingredients - 1) * self.ingredient_node_spacing_y) + self.ingredient_square_side #this is the height that all the ingredients take up
-                self.height += 50 #this is the height of the 's' shaped path that connects the ingredients to the node
-            
-            if not self.first_node: #add some space before the node.
-                self.height += self.main_node_spacing_y
-
-        else:
-            #this isn't a node - it's a conector 'S' from primary to secondary
-            self.height += self.split_height
+'''
 
     def draw_node(self,svg_y_pos):
 
@@ -291,41 +265,72 @@ class element_renderer():
     def draw_node_shape(self):
        
         # apply offset because node is drawn from centre, not top of radius
-        self.y_pos += self.main_node_radius
+        
+        node_draw_y_pos = self.y_pos + self.main_node_radius
+       
+        calc_node_height = 0
+        calc_text_height = 0
 
         group = ET.Element('g')
 
         if self.long_node:  
             oval_middle_length = self.data['long_step'] * self.long_step_inc
+
             #first oval outline  
-            s_path = 'M{0},{1} v{2} a{3},{3} 1 0 0 {3},{3} a{3},{3} 1 0 0 {3},-{3} v-{2} a-{3},{3} 1 0 0 -{3},-{3} a{3},{3} 1 0 0 -{3},{3}'.format(self.x_position - 13, self.y_pos, oval_middle_length, self.main_node_radius)
+            s_path = 'M{0},{1} v{2} a{3},{3} 1 0 0 {3},{3} a{3},{3} 1 0 0 {3},-{3} v-{2} a-{3},{3} 1 0 0 -{3},-{3} a{3},{3} 1 0 0 -{3},{3}'.format(self.x_position - 13, node_draw_y_pos, oval_middle_length, self.main_node_radius)
             oval = ET.Element('path', attrib={'d':s_path, 'fill':'white','stroke':'#929292'})
             group.append(oval)
             
             #then the fill
-            s_path = 'M{0},{1} v{2} a{3},{3} 1 0 0 {3},{3} a{3},{3} 1 0 0 {3},-{3} v-{2} a-{3},{3} 1 0 0 -{3},-{3} a{3},{3} 1 0 0 -{3},{3}'.format(self.x_position - 11, self.y_pos, oval_middle_length, self.main_node_radius - 2)
+            s_path = 'M{0},{1} v{2} a{3},{3} 1 0 0 {3},{3} a{3},{3} 1 0 0 {3},-{3} v-{2} a-{3},{3} 1 0 0 -{3},-{3} a{3},{3} 1 0 0 -{3},{3}'.format(self.x_position - 11, node_draw_y_pos, oval_middle_length, self.main_node_radius - 2)
             oval = ET.Element('path', attrib={'d':s_path, 'fill':'url(#diagonalHatch)'})
             group.append(oval)
 
-            self.y_pos += oval_middle_length
+            calc_node_height += (2 * self.main_node_radius) + oval_middle_length
 
         else:
             #first cirlce is the outline
-            circle = ET.Element('circle', attrib={'cx': str(self.x_position),'cy':str(self.y_pos),'r': str(self.main_node_radius), 'fill':'white','stroke':'#929292'})
+            circle = ET.Element('circle', attrib={'cx': str(self.x_position),'cy':str(node_draw_y_pos),'r': str(self.main_node_radius), 'fill':'white','stroke':'#929292'})
             group.append(circle)
 
             #second circle is for the fill
-            circle = ET.Element('circle', attrib={'cx': str(self.x_position),'cy':str(self.y_pos),'r': str(self.main_node_radius - 2), 'fill':'url(#grd_' + str(self.id) + ')'})
+            circle = ET.Element('circle', attrib={'cx': str(self.x_position),'cy':str(node_draw_y_pos),'r': str(self.main_node_radius - 2), 'fill':'url(#grd_' + str(self.id) + ')'})
             group.append(circle)
 
-        self.y_pos += self.main_node_radius #offset to set y_pos to bottom of node
-
+            calc_node_height += (2 * self.main_node_radius)
         
+        #work out how tall the text will be
+        if self.lines_text > 0:
+            calc_text_height += self.lines_text * self.node_text_line_spacing_y
+        
+        if self.extra_info == True:
+            calc_text_height += self.node_extra_info_text_line_spacing_y
+
+        group.append(self.draw_node_text())
+
+        self.y_pos += max(calc_text_height, calc_node_height)
+
         return group
 
     def draw_node_text(self):
+        
+        if self.in_split:
+            text_x_pos = self.secondary_path_x + self.text_offset_x
+        else:
+            text_x_pos = self.main_path_x + self.text_offset_x
 
-        text = ET.Element('text', attrib={'x': str(self.main_path_x + self.t_offset), 'y':str(self.y_pos - 19)})
+        fo = ET.Element('foreignObject', attrib={'x':str(text_x_pos), 'y':str(self.y_pos), 'height':'100%', 'width':'100%'})
+        fo.append(ET.Element('body', attrib={'xmlns':'http://www.w3.org/1999/xhtml'}))
+
+        div = ET.Element('div')
+        text = ET.Element('textarea', attrib={'rows':str(self.lines_text),'cols':str(self.node_text_char_width),'disabled':'','wrap':'soft'})
+        text.text = self.data['instruction'] + str(self.lines_text)
+        div.append(text)
+        fo.append(div)
+
+        return fo
+        '''
+        text = ET.Element('text', attrib={})
         lines = textwrap.wrap(self.step['instruction'], self.text_width, break_long_words=False)
 
         for line in lines:
@@ -353,6 +358,7 @@ class element_renderer():
             path = 'M{0} {1} h{2}'.format(self.main_path_x,self.next_node_y,self.t_offset - 5)
             path = ET.Element('path', attrib={'d':path,'stroke':'#929292'})
             self.svg.insert(0,path)
+        '''
 
     def draw_long_node(self,text_secondary):
 
@@ -377,16 +383,7 @@ class element_renderer():
             self.svg.insert(0,path)      
 
     def draw_circle_secondary(self):
-        group = ET.Element('g')
         
-        #first cirlce is the outline
-        circle = ET.Element('circle', attrib={'cx': str(self.secondary_path_x),'cy':str(self.next_node_y),'r': str(self.main_node_r), 'fill':'white','stroke':'#929292'})
-        group.append(circle)
-
-        #second circle is for the fill
-        circle = ET.Element('circle', attrib={'cx': str(self.secondary_path_x),'cy':str(self.next_node_y),'r': str(self.main_node_r - 2), 'fill':'url(#grd' + str(self.add_gradient()) + ')'})
-        group.append(circle)
-
         text = ET.Element('text', attrib={'x': str(self.secondary_path_x + self.t_offset), 'y':str(self.next_node_y - 19)})
         lines = textwrap.wrap(self.step['instruction'], self.text_width, break_long_words=False)
         for line in lines:
@@ -403,16 +400,7 @@ class element_renderer():
         self.svg.append(group)
 
     def draw_oval_secondary(self):
-        group = ET.Element('g')
-        
-        s_path = 'M{0},{1} v{2} a13,13 1 0 0 13,13 a13,13 1 0 0 13,-13 v-{2} a-13,13 1 0 0 -13,-13 a13,13 1 0 0 -13,13'.format(self.secondary_path_x - 13, self.next_node_y, self.step['long_step']*20)
-        oval = ET.Element('path', attrib={'d':s_path, 'fill':'white','stroke':'#929292'})
-        group.append(oval)
-        
-        s_path = 'M{0},{1} v{2} a11,11 1 0 0 11,11 a11,11 1 0 0 11,-11 v-{2} a-11,11 1 0 0 -11,-11 a11,11 1 0 0 -11,11'.format(self.secondary_path_x - 11,self.next_node_y,self.step['long_step']*20)
-        oval = ET.Element('path', attrib={'d':s_path, 'fill':'url(#diagonalHatch)'})
-        group.append(oval)
-
+       
         lines = textwrap.wrap(self.step['instruction'], self.text_width, break_long_words=False)
         centring_text_offset = (len(lines) * 19 / 2) + 19/2
         text = ET.Element('text', attrib={'x': str(self.secondary_path_x + self.t_offset), 'y':str(self.next_node_y + (self.step['long_step']*20)/2 - centring_text_offset)})
