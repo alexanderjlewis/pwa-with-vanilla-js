@@ -1,6 +1,0 @@
-tspan a {
-    fill: #93c54b;
-    /* Even for text, SVG uses fill over color */
-    text-decoration: underline;
-    font-style: italic;
-}

@@ -14,8 +14,8 @@ var filesToCache = [
     '/static/images/icons/196.png',
     '/static/images/icons/256.png',
     '/static/images/icons/512.png',
-    '/static/js/bootstrap.bundle.min.js',
-    '/static/js/jquery-3.6.0.min.js',
+    '/static/js/bootstrap.min.js',
+    '/static/js/jquery-3.5.1.slim.min.js',
     '/static/css/bootstrap.min.css',
     '/static/css/custom.min.css'
 ];

@@ -44,20 +44,21 @@
     "equipment_special": [
         "Stand Mixer"
     ],
-    "step_layout": ["Start", 0, 1, 2, "S", 3, 4, 5, 6, "S", 7, 8, 9, 10, "Finish"],
-    "steps": {
-        "Start": {
+    "steps": [{
+            "id": 0,
+            "before": [],
+            "after": [1],
             "time": "",
-            "secondary": false,
             "long_step": false,
             "completion": 0,
             "ingredients": [],
-            "instruction": "Start",
-            "extra_info": ""
+            "instruction": "Start"
         },
-        "0": {
+        {
+            "id": 1,
+            "before": [0],
+            "after": [2],
             "time": "10 min",
-            "secondary": false,
             "long_step": false,
             "completion": 15,
             "ingredients": [{
@@ -86,57 +87,63 @@
                     "unit": "Tbsp"
                 }
             ],
-            "instruction": "Kneed, medium-low speed in a stand mixer",
-            "extra_info": ""
+            "instruction": "Kneed, medium-low speed in a stand mixer"
         },
-        "1": {
+        {
+            "id": 2,
+            "before": [1],
+            "after": [3],
             "time": "12 hrs",
-            "secondary": false,
             "long_step": 8,
             "completion": 60,
             "ingredients": [],
-            "instruction": "Put dough in an oiled bowl and cover. Leave in fridge to rise",
-            "extra_info": ""
+            "instruction": "Put dough in an oiled bowl and cover. Leave in fridge to rise"
         },
-        "2": {
+        {
+            "id": 3,
+            "before": [2],
+            "after": [4, 5],
             "time": "",
-            "secondary": false,
             "long_step": false,
             "completion": 60,
             "ingredients": [],
-            "instruction": "Transfer onto floured board and divide into 8 even balls. Kneed and roll each ball until smooth",
-            "extra_info": ""
+            "instruction": "Transfer onto floured board and divide into 8 even balls. Kneed and roll each ball until smooth"
         },
-        "3": {
+        {
+            "id": 4,
+            "before": [3],
+            "after": [8],
             "time": "30 min",
-            "secondary": false,
             "long_step": 1,
             "completion": 70,
             "ingredients": [],
-            "instruction": "Cover and let rest",
-            "extra_info": ""
+            "instruction": "Cover and let rest"
         },
-        "4": {
+        {
+            "id": 5,
+            "before": [3],
+            "after": [6],
             "time": "",
-            "secondary": false,
             "long_step": false,
             "completion": 70,
             "ingredients": [],
-            "instruction": "Preheat oven to 220C",
-            "extra_info": ""
+            "instruction": "Preheat oven to 220C"
         },
-        "5": {
+        {
+            "id": 6,
+            "before": [5],
+            "after": [7],
             "time": "",
-            "secondary": true,
             "long_step": false,
             "completion": 70,
             "ingredients": [],
-            "instruction": "Bring a large pan of water to boil",
-            "extra_info": ""
+            "instruction": "Bring a large pan of water to boil"
         },
-        "6": {
+        {
+            "id": 7,
+            "before": [6],
+            "after": [8],
             "time": "",
-            "secondary": true,
             "long_step": false,
             "completion": 75,
             "ingredients": [{
@@ -150,30 +157,33 @@
                     "unit": "Tbsp"
                 }
             ],
-            "instruction": "Dissolve sugar into boiling water",
-            "extra_info": ""
+            "instruction": "Dissolve sugar into boiling water"
         },
-        "7": {
+        {
+            "id": 8,
+            "before": [3, 7],
+            "after": [9],
             "time": "",
-            "secondary": true,
             "long_step": false,
             "completion": 80,
             "ingredients": [],
-            "instruction": "Poke a hole through the centre of each ball to form a ring.",
-            "extra_info": ""
+            "instruction": "Poke a hole through the centre of each ball to form a ring."
         },
-        "8": {
+        {
+            "id": 9,
+            "before": [8],
+            "after": [10],
             "time": "3 min",
-            "secondary": false,
             "long_step": false,
             "completion": 80,
             "ingredients": [],
-            "instruction": "Boil bagels in batches, flipping after 2 min",
-            "extra_info": ""
+            "instruction": "Boil bagels in batches, flipping after 2 min"
         },
-        "9": {
+        {
+            "id": 10,
+            "before": [9],
+            "after": [11],
             "time": "",
-            "secondary": false,
             "long_step": false,
             "completion": 80,
             "ingredients": [{
@@ -187,26 +197,27 @@
                     "unit": "Various"
                 }
             ],
-            "instruction": "Brush on beaten egg then coat with topping of choice.",
-            "extra_info": ""
+            "instruction": "Brush on beaten egg then coat with topping of choice."
         },
-        "10": {
+        {
+            "id": 11,
+            "before": [10],
+            "after": [12],
             "time": "20-25 min",
-            "secondary": false,
             "long_step": 1,
             "completion": 100,
             "ingredients": [],
-            "instruction": "Bake",
-            "extra_info": ""
+            "instruction": "Bake"
         },
-        "Finish": {
+        {
+            "id": 12,
+            "before": [11],
+            "after": [],
             "time": "",
-            "secondary": false,
             "long_step": false,
             "completion": 100,
             "ingredients": [],
-            "instruction": "Enjoy!",
-            "extra_info": ""
+            "instruction": "Enjoy!"
         }
-    }
+    ]
 }

@@ -16,7 +16,6 @@
     {% endblock metas %}
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 
     {% block css %}
     {% endblock css %}
@@ -32,7 +31,7 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     
     {% block scripts %}
     {% endblock scripts %}
