@@ -44,7 +44,7 @@
     "equipment_special": [
         "Stand Mixer"
     ],
-    "step_layout": ["Start", 0, 1, 2, "S", 3, 4, 5, 6, "S", 7, 8, 9, 10, "Finish"],
+    "step_layout": ["Start", 0, 1, 2, "SS", 3, 4, 5, 6, "SE", 7, 8, 9, 10, "Finish"],
     "steps": {
         "Start": {
             "time": "",
@@ -118,7 +118,7 @@
         },
         "4": {
             "time": "",
-            "secondary": false,
+            "secondary": true,
             "long_step": false,
             "completion": 70,
             "ingredients": [],
@@ -155,7 +155,7 @@
         },
         "7": {
             "time": "",
-            "secondary": true,
+            "secondary": false,
             "long_step": false,
             "completion": 80,
             "ingredients": [],

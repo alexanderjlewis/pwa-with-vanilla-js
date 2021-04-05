@@ -19,16 +19,18 @@ class graph_renderer():
         in_split = False
         for step_id in self.render_recipe['step_layout']:
 
-            if step_id == 'S':
-                element = element_renderer(id = step_id, is_node = False)        
-                if in_split:
-                    element.end_split = True
-                    in_split = False
-                else:
-                    element.start_split = True
-                    in_split = True
+            if step_id == 'SS': #means split start
+                element = element_renderer(id = step_id, is_node = False)   
+                element.start_split = True
+                in_split = True
                 element.process_data()
- 
+
+            elif step_id == 'SE': #means split end
+                element = element_renderer(id = step_id, is_node = False)       
+                element.end_split = True
+                in_split = False
+                element.process_data()
+
             else:
                 element = element_renderer(id = step_id)        
 
@@ -50,10 +52,12 @@ class graph_renderer():
         for obj in self.element_objs:
             print(obj.id,obj.is_node,obj.height)
             if obj.is_node:
-                obj.draw(self.current_y)
+                obj.draw_node(self.current_y)
                 self.svg.append(obj.svg)
                 self.current_y += obj.height
             else:
+                obj.draw_split(self.current_y)
+                self.svg.append(obj.svg)
                 self.current_y += obj.height
 
     def get_graph(self):
@@ -85,19 +89,6 @@ class graph_renderer():
                 defs.append(gradient)
 
             self.svg.append(defs) 
-   
-    def draw_s_top(self,temp_y):
-        #draw the top 's' to join the secondary branch
-        s_path = 'M{0} {1} v10 a20,20 1 0 0 20,20 H{2} a20,20 0 0 1 20,20 V{3} a20,20 0 0 1 -20,20 H{4} a20,20 1 0 0 -20,20 v10'.format(self.main_path_x,temp_y,self.secondary_path_x-20,self.next_node_y+10,self.main_path_x+20)
-        s_path = ET.Element('path', attrib={'d':s_path, 'stroke':'#add8e6', 'stroke-width':'6', 'fill':'none'})
-        self.svg.insert(0,s_path) #need to insert this at the start so that it is behind the nodes
-        self.next_node_y += 10
-
-    def draw_main_line(self):
-        line_end = ' '.join(['M', str(self.main_path_x), str(self.main_start_y), 'L', str(self.main_path_x), str(self.next_node_y)])
-        line = ET.Element('path', attrib={'d':line_end, 'stroke':'#D7DADA', 'stroke-width':'6'})        
-        self.svg.insert(1,line)
-        self.svg.attrib['viewBox'] = '0 0 690 ' + str(self.next_node_y + 60)
 
 class element_renderer():
     #main node variables
@@ -121,7 +112,9 @@ class element_renderer():
 
     #secondary path       
     secondary_text_offset_x = 86
-    secondary_s_height = 50 #20 for each radius, + 10 at start.
+
+    #split line
+    split_height = 60 #20 for each radius, + 10 at start.
 
     def __init__(self,id,is_node = True):
         self.id = id
@@ -139,6 +132,7 @@ class element_renderer():
         self.last_node = False
         self.long_node = False
         self.y_pos = 0
+        self.x_pos = 0
 
         self.svg = ET.Element('svg', attrib={'width':'100%'})
 
@@ -147,7 +141,10 @@ class element_renderer():
             #process factors
             if self.data['secondary']:
                 self.main_path = False
-
+                self.x_position = self.secondary_path_x
+            else:
+                self.x_position = self.main_path_x
+                
             self.lines_text = len(textwrap.wrap(self.data['instruction'], self.node_text_char_width, break_long_words=False))
             if self.data.get('extra_info'):
                 self.extra_info = True
@@ -187,14 +184,14 @@ class element_renderer():
 
         else:
             #this isn't a node - it's a conector 'S' from primary to secondary
-            self.height += self.secondary_s_height
+            self.height += self.split_height
 
-    def draw(self,svg_y_pos):
+    def draw_node(self,svg_y_pos):
 
         self.svg.set('y',str(svg_y_pos))
-        
-        if not self.first_node:
-            self.y_pos += self.main_node_spacing_y
+
+        #every node gets some spacing above        
+        self.y_pos += self.main_node_spacing_y
 
         if self.ingredients > 0:
             ingredients_start_y_pos = self.y_pos
@@ -209,14 +206,11 @@ class element_renderer():
 
         #self.y_pos += self.main_node_radius #node is drawn for centre of radius so need to offset
 
-        if self.long_node:
-            #self.svg.append(self.draw_long_node())
-            pass
-        else:
-            self.svg.append(self.draw_node())
+        self.svg.append(self.draw_node_shape())
 
 
 
+        self.svg.insert(0,self.draw_main_line()) #need to insert this at the start so that the main line is alawys behind the nodes
 
         self.height = self.y_pos
 
@@ -242,6 +236,25 @@ class element_renderer():
             else:
                 self.draw_circle(text_secondary)'''
 
+    def draw_split(self,svg_y_pos):
+        
+        self.svg.set('y',str(svg_y_pos))
+
+        if self.start_split:
+            path = 'M{0} 0 v10 a20,20 1 0 0 20,20 H{1} a20,20 0 0 1 20,20 v10'.format(self.main_path_x,self.secondary_path_x - 20)
+        else: #therefore it is the end of a split
+            path = 'M{0} 0 v10 a20,20 0 0 1 -20,20 H{1} a20,20 0 0 0 -20,20 v10'.format(self.secondary_path_x,self.main_path_x + 20)
+        
+        line = ET.Element('path', attrib={'d':path, 'stroke':'#D7DADA', 'stroke-width':'6', 'fill':'none'})
+        self.svg.append(line)
+        self.y_pos += self.split_height
+
+
+        self.svg.append(self.draw_main_line())
+        
+        self.height = self.y_pos
+        
+
     def draw_ingredient(self,i):
         ingredient = self.data['ingredients'][i]
         
@@ -262,48 +275,52 @@ class element_renderer():
 
     def draw_ingredients_line(self,ingredients_start_y_pos):
         top_pos = ingredients_start_y_pos + 5 #offset by 5 so line is not visible above top node
+        
+        self.y_pos -= 10 #offset to stop line after ingredient nodes being too long vertically
+        
         if self.main_path:
             s_path = 'M{0} {1} V{2} a20,20 0 0 0 20,20 H{3} a20,20 0 0 1 20,20 v5'.format(self.ingredient_path_x,top_pos,self.y_pos,self.main_path_x-20)
             s_path = ET.Element('path', attrib={'d':s_path, 'stroke':'#D7DADA', 'stroke-width':'6', 'fill':'none'})
         else:
-            s_path = 'M{0} {1} V{2} a20,20 0 0 0 20,20 H{3} a20,20 0 0 1 20,20 v5'.format(self.ingredient_path_x,top_pos,self.y_pos,self.secondary_path_x-20)
+            s_path = 'M{0} {1} V{2} a20,20 0 0 0 20,20 H{4} m12 0 H{3} a20,20 0 0 1 20,20 v5'.format(self.ingredient_path_x,top_pos,self.y_pos,self.secondary_path_x-20,self.main_path_x-6)
             s_path = ET.Element('path', attrib={'d':s_path, 'stroke':'#add8e6', 'stroke-width':'6', 'fill':'none'})
         
         self.y_pos += 45 #this is the height of the 'S' at the bottom of the ingredient path
 
         return s_path
 
-    def draw_node(self):
+    def draw_node_shape(self):
        
         # apply offset because node is drawn from centre, not top of radius
         self.y_pos += self.main_node_radius
 
         group = ET.Element('g')
-       
-        if self.main_path:
-            x_position = self.main_path_x
-        else:
-            x_position = self.secondary_path_x
 
         if self.long_node:  
+            oval_middle_length = self.data['long_step'] * self.long_step_inc
             #first oval outline  
-            s_path = 'M{0},{1} v{2} a{4},{4} 1 0 0 {4},{4} a{4},{4} 1 0 0 {4},-{4} v-{2} a-{4},{4} 1 0 0 -{4},-{4} a{4},{4} 1 0 0 -{4},{4}'.format(x_position - 13, self.y_pos, self.step['long_step'] * self.long_step_inc, self.main_node_radius)
+            s_path = 'M{0},{1} v{2} a{3},{3} 1 0 0 {3},{3} a{3},{3} 1 0 0 {3},-{3} v-{2} a-{3},{3} 1 0 0 -{3},-{3} a{3},{3} 1 0 0 -{3},{3}'.format(self.x_position - 13, self.y_pos, oval_middle_length, self.main_node_radius)
             oval = ET.Element('path', attrib={'d':s_path, 'fill':'white','stroke':'#929292'})
             group.append(oval)
             
             #then the fill
-            s_path = 'M{0},{1} v{2} {4},{4} 1 0 0 {4},{4} a{4},{4} 1 0 0 {4},-{4} v-{2} a-{4},{4} 1 0 0 -{4},-{4} a{4},{4} 1 0 0 -{4},{4}'.format(x_position - 11, self.y_pos, self.step['long_step'] * self.long_step_inc, self.main_node_radius - 2)
+            s_path = 'M{0},{1} v{2} a{3},{3} 1 0 0 {3},{3} a{3},{3} 1 0 0 {3},-{3} v-{2} a-{3},{3} 1 0 0 -{3},-{3} a{3},{3} 1 0 0 -{3},{3}'.format(self.x_position - 11, self.y_pos, oval_middle_length, self.main_node_radius - 2)
             oval = ET.Element('path', attrib={'d':s_path, 'fill':'url(#diagonalHatch)'})
             group.append(oval)
 
+            self.y_pos += oval_middle_length
+
         else:
             #first cirlce is the outline
-            circle = ET.Element('circle', attrib={'cx': str(x_position),'cy':str(self.y_pos),'r': str(self.main_node_radius), 'fill':'white','stroke':'#929292'})
+            circle = ET.Element('circle', attrib={'cx': str(self.x_position),'cy':str(self.y_pos),'r': str(self.main_node_radius), 'fill':'white','stroke':'#929292'})
             group.append(circle)
 
             #second circle is for the fill
-            circle = ET.Element('circle', attrib={'cx': str(x_position),'cy':str(self.y_pos),'r': str(self.main_node_radius - 2), 'fill':'url(#grd_' + str(self.id) + ')'})
+            circle = ET.Element('circle', attrib={'cx': str(self.x_position),'cy':str(self.y_pos),'r': str(self.main_node_radius - 2), 'fill':'url(#grd_' + str(self.id) + ')'})
             group.append(circle)
+
+        self.y_pos += self.main_node_radius #offset to set y_pos to bottom of node
+
         
         return group
 
@@ -411,6 +428,22 @@ class element_renderer():
         group.append(text)
 
         self.svg.append(group)   
+
+    def draw_main_line(self):
+        
+        if self.first_node:
+            line_start = self.main_node_spacing_y + self.main_node_radius
+        else:
+            line_start = 0
+
+        if self.in_split: #if we are in a split state we draw two main lines - one per side of the split
+            path = 'M{0},{1} V{2} M{3},{1} V{2}'.format(self.main_path_x, line_start, self.y_pos, self.secondary_path_x)
+        else:
+            path = 'M{0},{1} V{2}'.format(self.main_path_x, line_start, self.y_pos)
+        
+        line = ET.Element('path', attrib={'d':path, 'stroke':'#D7DADA', 'stroke-width':'6'})
+        return line
+
 
 ############## END OF CLASS ######################
 
