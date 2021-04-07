@@ -43,21 +43,20 @@
     "equipment_special": [
         "Stand Mixer"
     ],
-    "steps": [{
-            "id": 0,
-            "before": [],
-            "after": [1],
+    "step_layout": ["Start", 0, 1, "SS", 2, 3, 4, "SE", 5, 6, 7, 8, "Finish"],
+    "steps": {
+        "Start":{
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 0,
             "ingredients": [],
-            "instruction": "Start"
+            "instruction": "Start",
+            "extra_info": ""
         },
-        {
-            "id": 1,
-            "before": [0],
-            "after": [2],
+        "0": {
             "time": "5 min",
+            "secondary": false,
             "long_step": false,
             "completion": 5,
             "ingredients": [{
@@ -76,13 +75,12 @@
                     "unit": "Tbsp"
                 }
             ],
-            "instruction": "Whisk together. Cover and rest."
+            "instruction": "Whisk together. Cover and rest.",
+            "extra_info": ""
         },
-        {
-            "id": 2,
-            "before": [1],
-            "after": [3, 5],
+        "1": {
             "time": "~5 min",
+            "secondary": false,
             "long_step": false,
             "completion": 15,
             "ingredients": [{
@@ -101,63 +99,57 @@
                     "unit": "g"
                 }
             ],
-            "instruction": "Add ingredients to stand mixer. Knead with a dough hook for 5min or until it bounces back slowly from a finger press."
+            "instruction": "Add ingredients to stand mixer. Knead with a dough hook for 5min or until it bounces back slowly from a finger press.",
+            "extra_info": ""
         },
-        {
-            "id": 3,
-            "before": [2],
-            "after": [4],
+        "2": {
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 40,
             "ingredients": [],
-            "instruction": "Lightly oil a large bowl. Place dough in a bowl and cover"
+            "instruction": "Lightly oil a large bowl. Place dough in a bowl and cover",
+            "extra_info": ""
         },
-        {
-            "id": 4,
-            "before": [3],
-            "after": [6],
+        "3": {
             "time": "60 - 90 min",
+            "secondary": false,
             "long_step": 2,
             "completion": 45,
             "ingredients": [],
-            "instruction": "Allow to rise in a warm place."
+            "instruction": "Allow to rise in a warm place.",
+            "extra_info": ""
         },
-        {
-            "id": 5,
-            "before": [2],
-            "after": [6],
+        "4": {
             "time": "",
+            "secondary": true,
             "long_step": false,
             "completion": 45,
             "ingredients": [],
-            "instruction": "Preheat oven to 250C"
+            "instruction": "Preheat oven to 250C",
+            "extra_info": ""
         },
-        {
-            "id": 6,
-            "before": [4, 5],
-            "after": [7],
+        "5": {
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 70,
             "ingredients": [],
-            "instruction": "Turn out dough onto a floured surface. Punch down to release trapped air and divide in half."
+            "instruction": "Turn out dough onto a floured surface. Punch down to release trapped air and divide in half.",
+            "extra_info": ""
         },
-        {
-            "id": 7,
-            "before": [6],
-            "after": [8],
+        "6": {
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 75,
             "ingredients": [],
-            "instruction": "Roll each half into a 12\" circle"
+            "instruction": "Roll each half into a 12\" circle",
+            "extra_info": ""
         },
-        {
-            "id": 8,
-            "before": [7],
-            "after": [9],
+        "7": {
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 75,
             "ingredients": [{
@@ -165,27 +157,26 @@
                 "quantity": "",
                 "unit": "Various"
             }],
-            "instruction": "Add toppings of your choice"
+            "instruction": "Add toppings of your choice",
+            "extra_info": ""
         },
-        {
-            "id": 9,
-            "before": [8],
-            "after": [10],
+        "8": {
             "time": "8 - 12 min",
+            "secondary": false,
             "long_step": false,
             "completion": 85,
             "ingredients": [],
-            "instruction": "Bake"
+            "instruction": "Bake",
+            "extra_info": ""
         },
-        {
-            "id": 10,
-            "before": [9],
-            "after": [],
+        "Finish": {
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 100,
             "ingredients": [],
-            "instruction": "Enjoy!"
+            "instruction": "Enjoy!",
+            "extra_info": ""
         }
-    ]
+    }
 }

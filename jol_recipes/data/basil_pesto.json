@@ -43,21 +43,20 @@
     "equipment_special": [
         "Blender"
     ],
-    "steps": [{
-            "id": 0,
-            "before": [],
-            "after": [1],
+    "step_layout": ["Start", 0, 1, 2, 3, 4, "Finish"],
+    "steps": {
+        "Start": {
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 0,
             "ingredients": [],
-            "instruction": "Start"
+            "instruction": "Start",
+            "extra_info": ""
         },
-        {
-            "id": 1,
-            "before": [0],
-            "after": [2],
+        "0":{
             "time": "5 min",
+            "secondary": false,
             "long_step": false,
             "completion": 40,
             "ingredients": [{
@@ -81,23 +80,21 @@
                     "unit": "Cloves"
                 }
             ],
-            "instruction": "Blend until smooth."
+            "instruction": "Blend until smooth.",
+            "extra_info": ""
         },
-        {
-            "id": 2,
-            "before": [1],
-            "after": [3],
+        "1":{
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 60,
             "ingredients": [],
-            "instruction": "Bring a large pot of water to the boil."
+            "instruction": "Bring a large pot of water to the boil.",
+            "extra_info": ""
         },
-        {
-            "id": 3,
-            "before": [2],
-            "after": [4],
+        "2":{
             "time": "~7 min",
+            "secondary": false,
             "long_step": false,
             "completion": 70,
             "ingredients": [{
@@ -105,23 +102,21 @@
                 "quantity": 500,
                 "unit": "g"
             }],
-            "instruction": "Boil till al dente"
+            "instruction": "Boil till al dente",
+            "extra_info": ""
         },
-        {
-            "id": 4,
-            "before": [3],
-            "after": [5],
+        "3":{
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 80,
             "ingredients": [],
-            "instruction": "Drain pasta and coat with a small amount of oil."
+            "instruction": "Drain pasta and coat with a small amount of oil.",
+            "extra_info": ""
         },
-        {
-            "id": 5,
-            "before": [4],
-            "after": [6],
+        "4":{
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 90,
             "ingredients": [{
@@ -129,17 +124,17 @@
                 "quantity": "",
                 "unit": "To Taste"
             }],
-            "instruction": "Add sauce. Season to taste."
+            "instruction": "Add sauce. Season to taste.",
+            "extra_info": ""
         },
-        {
-            "id": 6,
-            "before": [5],
-            "after": [],
+        "Finish":{
             "time": "",
+            "secondary": false,
             "long_step": false,
             "completion": 100,
             "ingredients": [],
-            "instruction": "Enjoy!"
+            "instruction": "Enjoy!",
+            "extra_info": ""
         }
-    ]
+    }
 }
