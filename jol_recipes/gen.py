@@ -7,7 +7,7 @@ class graph_renderer():
 
     def __init__(self, render_recipe):
         # dynamic vars
-        self.svg = ET.Element('svg', attrib={'width':'100%', 'height':'2000', 'version':"1.1", 'xmlns':"http://www.w3.org/2000/svg"})
+        self.svg = ET.Element('svg', attrib={'width':'100%', 'version':"1.1", 'xmlns':"http://www.w3.org/2000/svg"})
         self.current_y = 50 #some padding for top of chart
         self.element_objs = []
         self.render_recipe = render_recipe
@@ -58,6 +58,8 @@ class graph_renderer():
                 obj.draw_split(self.current_y)
                 self.svg.append(obj.svg)
                 self.current_y += obj.height
+        
+        self.svg.set('height',str(self.current_y + 50))
 
     def get_graph(self):
         return ET.tostring(self.svg, encoding='unicode', method='html')
@@ -152,14 +154,6 @@ class element_renderer():
             if self.data['long_step']:
                 self.long_node = True
 
-            '''
-            #calculate node height
-            temp_text_height = 0
-            temp_node_height = 0
-
-            # work out how tall the text will be
-'''
-
     def draw_node(self,svg_y_pos):
 
         self.svg.set('y',str(svg_y_pos))
@@ -182,33 +176,9 @@ class element_renderer():
 
         self.svg.append(self.draw_node_shape())
 
-
-
         self.svg.insert(0,self.draw_main_line()) #need to insert this at the start so that the main line is alawys behind the nodes
 
         self.height = self.y_pos
-
-        rect = ET.Element('rect', attrib={'width':'20','height':str(self.height),'stroke':'pink'})
-        self.svg.append(rect)
-
-        '''
-        # determine if node will be a long step (oval) or standard (circle) and render
-        self.prev_lines = len(textwrap.wrap(step['instruction'], self.text_width, break_long_words=False))
-        if step['long_step']:
-            if secondary:
-                self.draw_oval_secondary()
-            else:
-                self.draw_oval(text_secondary)
-            
-            # this still needs work - should depend on height of oval....
-            if self.prev_lines <= 6:
-                self.prev_lines = 1
-                self.next_node_y += step['long_step']*20
-        else:
-            if secondary:
-                self.draw_circle_secondary()
-            else:
-                self.draw_circle(text_secondary)'''
 
     def draw_split(self,svg_y_pos):
         
@@ -219,7 +189,7 @@ class element_renderer():
         else: #therefore it is the end of a split
             path = 'M{0} 0 v10 a20,20 0 0 1 -20,20 H{1} a20,20 0 0 0 -20,20 v10'.format(self.secondary_path_x,self.main_path_x + 20)
         
-        line = ET.Element('path', attrib={'d':path, 'stroke':'#D7DADA', 'stroke-width':'6', 'fill':'none'})
+        line = ET.Element('path', attrib={'d':path, 'stroke':'#add8e6', 'stroke-width':'6', 'fill':'none'})
         self.svg.append(line)
         self.y_pos += self.split_height
 
@@ -240,10 +210,10 @@ class element_renderer():
         text = ET.Element('text', attrib={'x': str(self.ingredient_path_x + 16), 'y':str(self.y_pos + (self.ingredient_square_side / 2)),'text-anchor':'start','font-size':'smaller','font-style':'italic','alignment-baseline':'middle'})
         text.text = str(ingredient['quantity']) + ' ' + str(ingredient['unit'])
         group.append(text)
-
+        
         # increment y_pos for height of ingredient node
         self.y_pos += self.ingredient_square_side
-        
+
         return group
 
     def draw_ingredients_line(self,ingredients_start_y_pos):
@@ -306,117 +276,49 @@ class element_renderer():
         if self.extra_info == True:
             calc_text_height += self.node_extra_info_text_line_spacing_y
 
-        group.append(self.draw_node_text())
+        group.append(self.draw_node_text(calc_text_height))
 
         self.y_pos += max(calc_text_height, calc_node_height)
 
         return group
 
-    def draw_node_text(self):
+    def draw_node_text(self,calc_text_height):
         
+        text_y_pos = self.y_pos + 2
+
         if self.in_split:
             text_x_pos = self.secondary_path_x + self.text_offset_x
         else:
             text_x_pos = self.main_path_x + self.text_offset_x
 
-        fo = ET.Element('foreignObject', attrib={'x':str(text_x_pos), 'y':str(self.y_pos), 'height':'100%', 'width':'100%'})
+        fo = ET.Element('foreignObject', attrib={'x':str(text_x_pos), 'y':str(text_y_pos), 'height':str(calc_text_height), 'width':'100%'})
         fo.append(ET.Element('body', attrib={'xmlns':'http://www.w3.org/1999/xhtml'}))
 
         div = ET.Element('div')
         text = ET.Element('textarea', attrib={'rows':str(self.lines_text),'cols':str(self.node_text_char_width),'disabled':'','wrap':'soft'})
-        text.text = self.data['instruction'] + str(self.lines_text)
+        text.text = self.data['instruction']
         div.append(text)
         fo.append(div)
 
+        # draw the connecting line if required
+        if self.in_split and self.main_path:
+            path = 'M{0} {1} H{2}'.format(self.main_path_x,text_y_pos + 11,text_x_pos - 5)
+            path = ET.Element('path', attrib={'d':path,'stroke':'#929292'})
+            self.svg.insert(0,path)
+            
         return fo
         '''
-        text = ET.Element('text', attrib={})
-        lines = textwrap.wrap(self.step['instruction'], self.text_width, break_long_words=False)
-
-        for line in lines:
-            tspan =  ET.Element('tspan', attrib={'x':str(self.main_path_x + self.t_offset),'dy':'19','alignment-baseline':'middle'})
-            tspan.text = line
-            text.append(tspan)
-        
         if self.step.get('extra_info'):
             tspan =  ET.Element('tspan', attrib={'x':str(self.main_path_x + self.t_offset),'dy':'30','alignment-baseline':'middle'})
             a = ET.Element('a', attrib={'tabindex':"0", 'class':"btn btn-link", "role":"button", 'data-toggle':"popover", "data-trigger":"focus", 'data-placement':"bottom", 'data-content':self.step['extra_info']})
             a.text = "Further Details..."
             tspan.append(a)
             text.append(tspan)
-        
-        group.append(text)
-        prev_lines = len(lines)
-        
-        text = ET.Element('text', attrib={'x': str(self.main_path_x - self.text_offset_x), 'y':str(self.next_node_y), 'text-anchor':'end', 'alignment-baseline':'middle'})
-        text.text = self.step['time']
-        group.append(text)
-        
-        self.svg.append(group)
-
-        if text_secondary:
-            path = 'M{0} {1} h{2}'.format(self.main_path_x,self.next_node_y,self.t_offset - 5)
-            path = ET.Element('path', attrib={'d':path,'stroke':'#929292'})
-            self.svg.insert(0,path)
-        '''
-
-    def draw_long_node(self,text_secondary):
-
-        lines = textwrap.wrap(self.step['instruction'], self.text_width, break_long_words=False)
-        centring_text_offset = (len(lines) * 19 / 2) + 19/2
-        text = ET.Element('text', attrib={'x': str(self.main_path_x + self.t_offset), 'y':str(self.next_node_y + (self.step['long_step']*20)/2 - centring_text_offset)})            
-        for line in lines:
-            tspan =  ET.Element('tspan', attrib={'x':str(self.main_path_x + self.t_offset),'dy':'19','alignment-baseline':'middle'})
-            tspan.text = line
-            text.append(tspan)
-        group.append(text)
-                
-        text = ET.Element('text', attrib={'x': str(self.main_path_x - self.text_offset_x), 'y':str(self.next_node_y + (self.step['long_step']*20)/2), 'text-anchor':'end', 'alignment-baseline':'middle'})
-        text.text = self.step['time']
-        group.append(text)  
-
-        self.svg.append(group)
-
-        if text_secondary:
-            path = 'M{0} {1} h{2}'.format(self.main_path_x,self.next_node_y + (self.step['long_step']*20)/2,self.t_offset - 5)
-            path = ET.Element('path', attrib={'d':path,'stroke':'#929292'})
-            self.svg.insert(0,path)      
-
-    def draw_circle_secondary(self):
-        
-        text = ET.Element('text', attrib={'x': str(self.secondary_path_x + self.t_offset), 'y':str(self.next_node_y - 19)})
-        lines = textwrap.wrap(self.step['instruction'], self.text_width, break_long_words=False)
-        for line in lines:
-            tspan =  ET.Element('tspan', attrib={'x':str(self.secondary_path_x + self.t_offset),'dy':'19','alignment-baseline':'middle'})
-            tspan.text = line
-            text.append(tspan)
-        group.append(text)
-        prev_lines = len(lines)
-        
-        text = ET.Element('text', attrib={'x': str(self.secondary_path_x - self.text_offset_x), 'y':str(self.next_node_y), 'text-anchor':'end', 'alignment-baseline':'middle'})
-        text.text = self.step['time']
-        group.append(text)
-
-        self.svg.append(group)
-
-    def draw_oval_secondary(self):
-       
-        lines = textwrap.wrap(self.step['instruction'], self.text_width, break_long_words=False)
-        centring_text_offset = (len(lines) * 19 / 2) + 19/2
-        text = ET.Element('text', attrib={'x': str(self.secondary_path_x + self.t_offset), 'y':str(self.next_node_y + (self.step['long_step']*20)/2 - centring_text_offset)})
-        for line in lines:
-            tspan =  ET.Element('tspan', attrib={'x':str(self.secondary_path_x + self.t_offset),'dy':'19','alignment-baseline':'middle'})
-            tspan.text = line
-            text.append(tspan)
-        group.append(text)
-                
-        text = ET.Element('text', attrib={'x': str(self.secondary_path_x - self.text_offset_x), 'y':str(self.next_node_y + (self.step['long_step']*20)/2), 'text-anchor':'end', 'alignment-baseline':'middle', 'fill':'#55595c'})
-        text.text = self.step['time']
-        group.append(text)
-
-        self.svg.append(group)   
+        '''   
 
     def draw_main_line(self):
+        
+        g = ET.Element('g', attrib={})
         
         if self.first_node:
             line_start = self.main_node_spacing_y + self.main_node_radius
@@ -424,12 +326,15 @@ class element_renderer():
             line_start = 0
 
         if self.in_split: #if we are in a split state we draw two main lines - one per side of the split
-            path = 'M{0},{1} V{2} M{3},{1} V{2}'.format(self.main_path_x, line_start, self.y_pos, self.secondary_path_x)
+            path1 = 'M{0},{1} V{2}'.format(self.main_path_x, line_start, self.y_pos)
+            path2 = 'M{0},{1} V{2}'.format(self.secondary_path_x, line_start, self.y_pos)    
+            g.append(ET.Element('path', attrib={'d':path1, 'stroke':'#D7DADA', 'stroke-width':'6'}))
+            g.append(ET.Element('path', attrib={'d':path2, 'stroke':'#add8e6', 'stroke-width':'6'}))
         else:
             path = 'M{0},{1} V{2}'.format(self.main_path_x, line_start, self.y_pos)
+            g.append(ET.Element('path', attrib={'d':path, 'stroke':'#D7DADA', 'stroke-width':'6'}))
         
-        line = ET.Element('path', attrib={'d':path, 'stroke':'#D7DADA', 'stroke-width':'6'})
-        return line
+        return g
 
 
 ############## END OF CLASS ######################
