@@ -49,7 +49,7 @@ class graph_renderer():
     def render(self):
 
         for obj in self.element_objs:
-            print(obj.id,obj.is_node,obj.height)
+            #print(obj.id,obj.is_node,obj.height)
             if obj.is_node:
                 obj.draw_node(self.current_y)
                 self.svg.append(obj.svg)
@@ -284,6 +284,8 @@ class element_renderer():
 
     def draw_node_text(self,calc_text_height):
         
+        g = ET.Element('g', attrib={})
+
         text_y_pos = self.y_pos + 2
 
         if self.in_split:
@@ -300,21 +302,25 @@ class element_renderer():
         div.append(text)
         fo.append(div)
 
+        g.append(fo)
+
         # draw the connecting line if required
         if self.in_split and self.main_path:
             path = 'M{0} {1} H{2}'.format(self.main_path_x,text_y_pos + 11,text_x_pos - 5)
             path = ET.Element('path', attrib={'d':path,'stroke':'#929292'})
             self.svg.insert(0,path)
-            
-        return fo
-        '''
-        if self.step.get('extra_info'):
-            tspan =  ET.Element('tspan', attrib={'x':str(self.main_path_x + self.t_offset),'dy':'30','alignment-baseline':'middle'})
-            a = ET.Element('a', attrib={'tabindex':"0", 'class':"btn btn-link", "role":"button", 'data-toggle':"popover", "data-trigger":"focus", 'data-placement':"bottom", 'data-content':self.step['extra_info']})
+
+        print(self.id, self.lines_text)
+
+        #add the 'extra info' section if required
+        if self.extra_info:
+            tspan =  ET.Element('tspan', attrib={'x':str(text_x_pos),'y':str(text_y_pos + (self.lines_text * 19)),'alignment-baseline':'middle'})
+            a = ET.Element('a', attrib={'tabindex':"0", 'class':"btn btn-link", "role":"button", 'data-toggle':"popover", "data-trigger":"focus", 'data-placement':"bottom", 'data-content':self.data['extra_info']})
             a.text = "Further Details..."
             tspan.append(a)
-            text.append(tspan)
-        '''   
+            g.append(tspan)
+
+        return g 
 
     def draw_main_line(self):
         
