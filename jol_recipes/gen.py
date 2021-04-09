@@ -297,9 +297,12 @@ class element_renderer():
         fo.append(ET.Element('body', attrib={'xmlns':'http://www.w3.org/1999/xhtml'}))
 
         div = ET.Element('div')
+        pre = ET.Element('pre')
         text = ET.Element('textarea', attrib={'rows':str(self.lines_text),'cols':str(self.node_text_char_width),'disabled':'','wrap':'soft'})
         text.text = self.data['instruction']
-        div.append(text)
+        
+        pre.append(text)
+        div.append(pre)
         fo.append(div)
 
         g.append(fo)

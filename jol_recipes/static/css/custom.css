@@ -19,4 +19,5 @@ textarea {
     line-height: 19px;
     max-width: 100%;
     text-size-adjust: none;
+    display: block;
 }
