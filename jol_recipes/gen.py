@@ -296,7 +296,7 @@ class element_renderer():
         fo = ET.Element('foreignObject', attrib={'x':str(text_x_pos), 'y':str(text_y_pos), 'height':str(len(self.lines_text) * self.node_text_line_spacing_y + 50), 'width':'100%'})
         fo.append(ET.Element('body', attrib={'xmlns':'http://www.w3.org/1999/xhtml'}))
 
-        text_area = ET.Element('textarea', attrib={'rows':str(len(self.lines_text)),'cols':str(self.node_text_char_width),'disabled':'','wrap':'soft','class':'chart_text'})
+        text_area = ET.Element('textarea', attrib={'rows':str(len(self.lines_text)),'cols':str(self.node_text_char_width),'disabled':'','wrap':'soft','class':'chart_textarea chart_text'})
         
         text_block = ''
         for line in self.lines_text:
@@ -304,7 +304,7 @@ class element_renderer():
             text_block += '\r\n'
         text_area.text = text_block
         
-        p1 = ET.Element('p')
+        p1 = ET.Element('p', attrib={'class':'chart_p'})
         p1.append(text_area)
         fo.append(p1)
 
@@ -320,11 +320,11 @@ class element_renderer():
 
         #add the 'extra info' section if required
         if self.extra_info:
-            p2 = ET.Element('p')
+            p2 = ET.Element('p', attrib={'class':'chart_p'})
 
             #tspan =  ET.Element('tspan', attrib={'x':str(text_x_pos),'y':str(text_y_pos + (len(self.lines_text) * 19)),'alignment-baseline':'middle'})
-            a = ET.Element('a', attrib={'alignment-baseline':'middle','tabindex':"0", 'class':"btn btn-link", "role":"button", 'data-toggle':"popover", "data-trigger":"focus", 'data-placement':"bottom", 'data-content':self.data['extra_info']})
-            a.text = "Further Details..."
+            a = ET.Element('a', attrib={'alignment-baseline':'middle','tabindex':"0", 'class':"chart_a chart_text", "role":"button", 'data-toggle':"popover", "data-trigger":"focus", 'data-placement':"bottom", 'data-content':self.data['extra_info']})
+            a.text = "Click for More Details..."
             #tspan.append(a)
             p2.append(a)
             fo.append(p2)

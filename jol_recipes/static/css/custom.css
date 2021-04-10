@@ -10,16 +10,25 @@ tspan a {
     font-style: italic;
 }
 
-textarea {
+.chart_textarea {
     border: none;
     overflow: hidden;
     resize: none;
     background-color: transparent;
     line-height: 19px;
     white-space: pre-line;
+    padding-left: 2px;
 }
 
 .chart_text {
     font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
     font-size: small;
+}
+
+.chart_p {
+    margin-bottom: 0;
+}
+
+.chart_a{
+    padding-left: 2px;
 }
