@@ -1,5 +1,5 @@
 * {
-    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    /*font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;*/
     font-size: small;
 }
 
@@ -14,10 +14,12 @@ textarea {
     border: none;
     overflow: hidden;
     resize: none;
-    /*remove the resize handle on the bottom right*/
     background-color: transparent;
     line-height: 19px;
-    max-width: 100%;
-    text-size-adjust: none;
-    display: block;
+    white-space: pre-line;
+}
+
+.chart_text {
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    font-size: small;
 }

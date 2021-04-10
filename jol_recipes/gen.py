@@ -124,7 +124,7 @@ class element_renderer():
         self.in_split = False
         self.main_path = True
         self.ingredients = 0
-        self.lines_text = 1
+        self.lines_text = []
         self.extra_info = False
         self.data = {}
         self.height = 0
@@ -145,7 +145,7 @@ class element_renderer():
             else:
                 self.x_position = self.main_path_x
                 
-            self.lines_text = len(textwrap.wrap(self.data['instruction'], self.node_text_char_width, break_long_words=False))
+            self.lines_text = textwrap.wrap(self.data['instruction'], self.node_text_char_width, break_long_words=False)
             if self.data.get('extra_info'):
                 self.extra_info = True
 
@@ -204,7 +204,7 @@ class element_renderer():
         group = ET.Element('g',attrib={})
         square = ET.Element('rect', attrib={'x':str(self.ingredient_path_x - 8),'y':str(self.y_pos),'width':str(self.ingredient_square_side),'height':str(self.ingredient_square_side),'fill':'#3D4242','stroke':'#3D4242'})
         group.append(square)
-        text = ET.Element('text', attrib={'x': str(self.ingredient_path_x - 16), 'y':str(self.y_pos + (self.ingredient_square_side / 2)),'text-anchor':'end','font-size':'smaller','alignment-baseline':'middle'})
+        text = ET.Element('text', attrib={'x': str(self.ingredient_path_x - 16), 'y':str(self.y_pos + (self.ingredient_square_side / 2)),'text-anchor':'end','font-size':'smaller','alignment-baseline':'middle', 'class':'chart_text'})
         text.text = ingredient['name']
         group.append(text)
         text = ET.Element('text', attrib={'x': str(self.ingredient_path_x + 16), 'y':str(self.y_pos + (self.ingredient_square_side / 2)),'text-anchor':'start','font-size':'smaller','font-style':'italic','alignment-baseline':'middle'})
@@ -270,8 +270,8 @@ class element_renderer():
             calc_node_height += (2 * self.main_node_radius)
         
         #work out how tall the text will be
-        if self.lines_text > 0:
-            calc_text_height += self.lines_text * self.node_text_line_spacing_y
+        if self.lines_text:
+            calc_text_height += len(self.lines_text) * self.node_text_line_spacing_y
         
         if self.extra_info == True:
             calc_text_height += self.node_extra_info_text_line_spacing_y
@@ -293,19 +293,22 @@ class element_renderer():
         else:
             text_x_pos = self.main_path_x + self.text_offset_x
 
-        fo = ET.Element('foreignObject', attrib={'x':str(text_x_pos), 'y':str(text_y_pos), 'height':str(calc_text_height), 'width':'100%'})
+        fo = ET.Element('foreignObject', attrib={'x':str(text_x_pos), 'y':str(text_y_pos), 'height':str(len(self.lines_text) * self.node_text_line_spacing_y + 50), 'width':'100%'})
         fo.append(ET.Element('body', attrib={'xmlns':'http://www.w3.org/1999/xhtml'}))
 
-        div = ET.Element('div')
-        pre = ET.Element('pre')
-        text = ET.Element('textarea', attrib={'rows':str(self.lines_text),'cols':str(self.node_text_char_width),'disabled':'','wrap':'soft'})
-        text.text = self.data['instruction']
+        text_area = ET.Element('textarea', attrib={'rows':str(len(self.lines_text)),'cols':str(self.node_text_char_width),'disabled':'','wrap':'soft','class':'chart_text'})
         
-        pre.append(text)
-        div.append(pre)
-        fo.append(div)
+        text_block = ''
+        for line in self.lines_text:
+            text_block += str(line)
+            text_block += '\r\n'
+        text_area.text = text_block
+        
+        p1 = ET.Element('p')
+        p1.append(text_area)
+        fo.append(p1)
 
-        g.append(fo)
+        
 
         # draw the connecting line if required
         if self.in_split and self.main_path:
@@ -317,11 +320,16 @@ class element_renderer():
 
         #add the 'extra info' section if required
         if self.extra_info:
-            tspan =  ET.Element('tspan', attrib={'x':str(text_x_pos),'y':str(text_y_pos + (self.lines_text * 19)),'alignment-baseline':'middle'})
-            a = ET.Element('a', attrib={'tabindex':"0", 'class':"btn btn-link", "role":"button", 'data-toggle':"popover", "data-trigger":"focus", 'data-placement':"bottom", 'data-content':self.data['extra_info']})
+            p2 = ET.Element('p')
+
+            #tspan =  ET.Element('tspan', attrib={'x':str(text_x_pos),'y':str(text_y_pos + (len(self.lines_text) * 19)),'alignment-baseline':'middle'})
+            a = ET.Element('a', attrib={'alignment-baseline':'middle','tabindex':"0", 'class':"btn btn-link", "role":"button", 'data-toggle':"popover", "data-trigger":"focus", 'data-placement':"bottom", 'data-content':self.data['extra_info']})
             a.text = "Further Details..."
-            tspan.append(a)
-            g.append(tspan)
+            #tspan.append(a)
+            p2.append(a)
+            fo.append(p2)
+        
+        g.append(fo)
 
         return g 
 
