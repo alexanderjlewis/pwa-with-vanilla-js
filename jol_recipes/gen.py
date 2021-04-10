@@ -17,6 +17,8 @@ class graph_renderer():
 
         #create objects for each element
         in_split = False
+        print(self.render_recipe.get('step_layout'))
+
         for step_id in self.render_recipe['step_layout']:
 
             if step_id == 'SS': #means split start
@@ -49,7 +51,6 @@ class graph_renderer():
     def render(self):
 
         for obj in self.element_objs:
-            #print(obj.id,obj.is_node,obj.height)
             if obj.is_node:
                 obj.draw_node(self.current_y)
                 self.svg.append(obj.svg)
@@ -316,8 +317,6 @@ class element_renderer():
             path = ET.Element('path', attrib={'d':path,'stroke':'#929292'})
             self.svg.insert(0,path)
 
-        print(self.id, self.lines_text)
-
         #add the 'extra info' section if required
         if self.extra_info:
             p2 = ET.Element('p', attrib={'class':'chart_p'})
@@ -357,7 +356,7 @@ class element_renderer():
 ############## END OF CLASS ######################
 
 def generate(render_recipe): 
-    if render_recipe and render_recipe['step_layout']:
+    if render_recipe and render_recipe.get('step_layout'):
         
         obj_graph_renderer = graph_renderer(render_recipe = render_recipe)
         obj_graph_renderer.render()

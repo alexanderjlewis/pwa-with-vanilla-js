@@ -26,9 +26,9 @@ def render_recipe_page(name=None):
     for recipe in data['recipes']:
         if recipe['safe_name'] == name:
             with open('data/' + name + '.json') as f1:
-                data1 = json.load(f1)
-    chart = generate(data1)
-    return render_template('chart.html', recipe=data1, chart=chart)
+                json_data = json.load(f1)
+    chart = generate(json_data)
+    return render_template('chart.html', recipe=json_data, chart=chart)
 
 @app.route('/sw.js')
 def sw():
